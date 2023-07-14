@@ -18,12 +18,7 @@ This will be saved and a high score screen will appear similar to an arcade game
 
 
 ## User Stories
-- As a user, I want to be able to add actions to Batman that give the player a variety of gaming controls.
-- As a user, I want to be able to add collisions to a map to create different layers.
-- As a user, I want to be able to create an enemy that can attack and spawn it on the map.
-- As a user, I want to be able to create a final boss enemy that has a variety of attacks and spawn it at the end 
-of the map.
-- As a user, I want to be able to be able to add a player's score and save it in the game.
-- As a user, I want to be able to be able to create sprites and add them to each respective character.
-- As a user, I want to be able to be able to create a visually appealing map and add it to the game background.
-- As a user, I want to be able to create sound effects and add them to each feature of the game.
+- As a user, I want to be able to add my score to the scoreboard at the end of the game.
+- As a user, I want to be able to traverse through different layers of the map.
+- As a user, I want to be able to damage enemies using different attacks.
+- As a user, I want to be able to receive damage from enemies.
