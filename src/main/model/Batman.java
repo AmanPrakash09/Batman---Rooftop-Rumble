@@ -21,8 +21,6 @@ public class Batman {
 
     private boolean punching;
 
-//    private Batarang batarang;
-
     public Batman() {
         this.health = 100;
         this.xcoor = 1;
@@ -34,22 +32,6 @@ public class Batman {
         this.facingRight = true;
         this.punching = false;
     }
-
-//    public void throwBatarang() {
-//        batarang = new Batarang(getXcoor(), getYcoor());
-//        batarang.setXcoor(getXcoor());
-//        batarang.setYcoor(getYcoor());
-////        while (batarang.getXcoor() >= 0 && batarang.getXcoor() <= maxX) {
-////            batarang.move(batman.isFacingRight());
-////        }
-//        int target = 0;
-//        while (target < 5) {
-//            batarang.move(isFacingRight());;
-////            delay(100);
-//            target++;
-//        }
-////        batarang.setValid(false);
-//    }
 
     public boolean hasPunched(Ninja ninja) {
         if (punching) {
@@ -64,16 +46,8 @@ public class Batman {
             }
         }
         return false;
-//        return this.xcoor == ninja.getXcoor() && this.ycoor == ninja.getYcoor();
     }
 
-//    private void delay(int milliseconds) {
-//        try {
-//            Thread.sleep(milliseconds);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void punch() {
         this.punching = true;
@@ -173,6 +147,14 @@ public class Batman {
 
     public boolean isOnRoof() {
         return this.onRoof;
+    }
+
+    public boolean isInAir() {
+        return this.inAir;
+    }
+
+    public boolean isAtRightMost() {
+        return this.atRightMost;
     }
 
     public boolean isFacingRight() {
