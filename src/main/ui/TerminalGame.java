@@ -173,38 +173,22 @@ public class TerminalGame {
 
     private void drawBatman() {
         Batman batman = game.getBatman();
-//        char c = '█';
-
-//        drawPosition(snake.getHead(), TextColor.ANSI.GREEN, '█', true);
-        drawPosition(batman.getXcoor(), batman.getYcoor(), TextColor.ANSI.GREEN, '█', true);
+        drawPosition(batman.getXcoor(), batman.getYcoor(), TextColor.ANSI.GREEN, 'b', true);
 
     }
 
     private void drawNinja() {
         for (Ninja ninja : game.getNinjas()) {
-            drawPosition(ninja.getXcoor(), ninja.getYcoor(), TextColor.ANSI.RED, '█', true);
+            drawPosition(ninja.getXcoor(), ninja.getYcoor(), TextColor.ANSI.RED, 'n', true);
         }
     }
-
-//    private void drawBatarang() {
-////        Batarang batarang = new Batarang(game.getBatman().getXcoor(), game.getBatman().getYcoor());
-//        Batarang batarang = game.getBatman().getBatarang();
-////        char c = '█';
-//
-////        drawPosition(snake.getHead(), TextColor.ANSI.GREEN, '█', true);
-//        if (batarang != null) {
-//            drawPosition(batarang.getXcoor(), batarang.getYcoor(), TextColor.ANSI.RED, '⬤', true);
-//        }
-////        drawPosition(batarang.getXcoor(), batarang.getYcoor(), TextColor.ANSI.RED, '⬤', true);
-//    }
 
     private void drawGround() {
         Ground ground = game.getGround();
 
         TextGraphics text = screen.newTextGraphics();
         text.setForegroundColor(TextColor.ANSI.BLUE);
-//        text.drawLine(ground.getXcoor(), ground.getYcoor(), ground.getXcoor() + 35, ground.getYcoor(), '█');
-        text.drawLine(0, this.sizeY - 2, this.sizeX * 2, this.sizeY - 2, '█');
+        text.drawLine(0, this.sizeY - 2, this.sizeX * 2, this.sizeY - 2, 'g');
 
         ground.setWidth(this.sizeX * 2);
         ground.setHeight(this.sizeY - 2);
@@ -223,11 +207,11 @@ public class TerminalGame {
         TextGraphics text = screen.newTextGraphics();
         text.setForegroundColor(TextColor.ANSI.YELLOW);
         text.drawLine(roof.getXcoor() + 5, roof.getHeight(),
-                roof.getXcoor() + 2 * roof.getWidth() + 5, roof.getHeight(), '█');
+                roof.getXcoor() + 2 * roof.getWidth() + 5, roof.getHeight(), 'r');
         text.drawLine(roof1.getXcoor() + 10, roof1.getHeight(),
-                roof1.getXcoor() + 2 * roof1.getWidth() + 10, roof1.getHeight(), '█');
+                roof1.getXcoor() + 2 * roof1.getWidth() + 10, roof1.getHeight(), 'r');
         text.drawLine(roof2.getXcoor() + 15, roof2.getHeight(),
-                roof2.getXcoor() + 2 * roof2.getWidth() + 15, roof2.getHeight(), '█');
+                roof2.getXcoor() + 2 * roof2.getWidth() + 15, roof2.getHeight(), 'r');
 
         roof.setHeight(this.sizeY - 2);
         roof1.setHeight(roof.getHeight());
