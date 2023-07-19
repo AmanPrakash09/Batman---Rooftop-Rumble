@@ -19,6 +19,10 @@ public class Ground {
 //        System.out.println(height);
     }
 
+    public int getWidth() {
+        return this.width;
+    }
+
     public int getHeight() {
         return this.height;
     }
