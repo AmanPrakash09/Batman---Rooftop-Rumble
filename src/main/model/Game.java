@@ -18,13 +18,15 @@ public class Game {
 //    private Batarang batarang;
     private int maxX;
     private int maxY;
-    private int health = 100;
+    private int health;
     private int score = 0;
-    private boolean ended = false;
+    private boolean ended;
 
     public Game(int maxX, int maxY) {
         this.maxX = maxX;
         this.maxY = maxY;
+        this.health = 100;
+        this.ended = false;
 
         Ninja ninja = new Ninja(2,18);
         Ninja ninja1 = new Ninja(10,18);
@@ -74,7 +76,7 @@ public class Game {
      * Checks for ninja that Batman has defeated,
      * grows the snake and increases score if food is found
      */
-    private void handleNinja() {
+    public void handleNinja() {
         for (Ninja ninja : ninjas) {
             if (ninja.getXcoor() == batman.getXcoor() && ninja.getYcoor() == batman.getYcoor()) {
                 health -= 1;
@@ -196,6 +198,14 @@ public class Game {
 //        }
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void emptyNinjas() {
+        this.ninjas.clear();
+    }
+
     public Batman getBatman() {
         return batman;
     }
@@ -214,6 +224,14 @@ public class Game {
 
     public Roof getRoof2() {
         return roof2;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMaxY() {
+        return maxY;
     }
 
 //    public Batarang getBatarang() {
