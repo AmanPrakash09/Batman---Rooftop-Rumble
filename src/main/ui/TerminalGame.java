@@ -49,7 +49,7 @@ public class TerminalGame {
             Thread.sleep(1000L / Game.TICKS_PER_SECOND);
         }
 
-        game.addScoreToScoreboard();
+//        game.addScoreToScoreboard();
         System.exit(0);
     }
 

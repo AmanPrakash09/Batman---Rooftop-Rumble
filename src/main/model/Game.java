@@ -174,29 +174,29 @@ public class Game {
 //        }
 //    }
 
-    public void addScoreToScoreboard() throws IOException {
-        Scanner name = new Scanner(System.in);
-        String playerName;
-
-        // Enter name and press Enter
-        System.out.println("Enter Name");
-        playerName = name.nextLine();
-
-        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
-
-//        System.out.println(playerName + ": " + getScore());
-        System.out.println(nameAndScore);
-
-        File file = new File("./data/scoreboard.txt");
-        FileWriter fr = new FileWriter(file, true);
-        fr.write(nameAndScore + "\n");
-        fr.close();
-
-//        File file = new File(".");
-//        for (String fileNames : file.list()) {
-//            System.out.println(fileNames);
-//        }
-    }
+//    public void addScoreToScoreboard() throws IOException {
+//        Scanner name = new Scanner(System.in);
+//        String playerName;
+//
+//        // Enter name and press Enter
+//        System.out.println("Enter Name");
+//        playerName = name.nextLine();
+//
+//        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
+//
+////        System.out.println(playerName + ": " + getScore());
+//        System.out.println(nameAndScore);
+//
+//        File file = new File("./data/scoreboard.txt");
+//        FileWriter fr = new FileWriter(file, true);
+//        fr.write(nameAndScore + "\n");
+//        fr.close();
+//
+////        File file = new File(".");
+////        for (String fileNames : file.list()) {
+////            System.out.println(fileNames);
+////        }
+//    }
 
     public void setHealth(int health) {
         this.health = health;

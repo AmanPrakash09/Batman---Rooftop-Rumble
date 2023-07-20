@@ -10,6 +10,14 @@ public class Ninja {
         this.ycoor = y;
     }
 
+    public void setXcoor(int x) {
+        this.xcoor = x;
+    }
+
+    public void setYcoor(int y) {
+        this.ycoor = y;
+    }
+
     public int getXcoor() {
         return this.xcoor;
     }
