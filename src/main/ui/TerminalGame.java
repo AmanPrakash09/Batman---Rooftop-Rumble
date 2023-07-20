@@ -18,6 +18,7 @@ import model.*;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class TerminalGame {
     private Game game;
@@ -49,8 +50,39 @@ public class TerminalGame {
             Thread.sleep(1000L / Game.TICKS_PER_SECOND);
         }
 
-//        game.addScoreToScoreboard();
+        addScoreToScoreboard();
         System.exit(0);
+    }
+
+    public void addScoreToScoreboard() throws IOException {
+        Scanner name = new Scanner(System.in);
+        String playerName;
+
+        // Enter name and press Enter
+        System.out.println("Enter Name");
+        playerName = name.nextLine();
+
+        Score s = new Score(playerName, game.getScore());
+
+        Scoreboard sb = new Scoreboard();
+        sb.addScore(s);
+
+//        System.out.println(sb.getList().get(0));
+
+//        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
+//
+////        System.out.println(playerName + ": " + getScore());
+//        System.out.println(nameAndScore);
+//
+//        File file = new File("./data/scoreboard.txt");
+//        FileWriter fr = new FileWriter(file, true);
+//        fr.write(nameAndScore + "\n");
+//        fr.close();
+//
+////        File file = new File(".");
+////        for (String fileNames : file.list()) {
+////            System.out.println(fileNames);
+//        }
     }
 
     private void tick() throws IOException {

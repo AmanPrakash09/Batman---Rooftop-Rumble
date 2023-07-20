@@ -182,19 +182,26 @@ public class Game {
 //        System.out.println("Enter Name");
 //        playerName = name.nextLine();
 //
-//        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
+//        Score s = new Score(playerName, getScore());
 //
-////        System.out.println(playerName + ": " + getScore());
-//        System.out.println(nameAndScore);
+//        Scoreboard sb = new Scoreboard();
+//        sb.addScore(s);
 //
-//        File file = new File("./data/scoreboard.txt");
-//        FileWriter fr = new FileWriter(file, true);
-//        fr.write(nameAndScore + "\n");
-//        fr.close();
+////        System.out.println(sb.getList().get(0));
 //
-////        File file = new File(".");
-////        for (String fileNames : file.list()) {
-////            System.out.println(fileNames);
+////        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
+////
+//////        System.out.println(playerName + ": " + getScore());
+////        System.out.println(nameAndScore);
+////
+////        File file = new File("./data/scoreboard.txt");
+////        FileWriter fr = new FileWriter(file, true);
+////        fr.write(nameAndScore + "\n");
+////        fr.close();
+////
+//////        File file = new File(".");
+//////        for (String fileNames : file.list()) {
+//////            System.out.println(fileNames);
 ////        }
 //    }
 
