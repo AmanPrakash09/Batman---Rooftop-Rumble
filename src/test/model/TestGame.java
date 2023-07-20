@@ -478,14 +478,4 @@ public class TestGame {
         game.isBatmanOnSurface();
         assertTrue(game.getBatman().isAtRightMost());
     }
-
-//    @Test
-//    void testAddScoreToScoreboard() throws IOException {
-//        game.addScoreToScoreboard();
-////        game.getBatman().setXcoor(50);
-////        game.isBatmanOnSurface();
-////        assertTrue(game.getBatman().isAtRightMost());
-//    }
-
-
 }

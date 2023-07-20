@@ -7,21 +7,23 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+// this is the Game class that represents the whole game being played
 public class Game {
     public static final int TICKS_PER_SECOND = 100;
+    // add fields to represent changing properties of Game
     private final Batman batman = new Batman();
     private final Ground ground = new Ground();
     private final Roof roof = new Roof(5, 15, ground.getHeight());
     private final Roof roof1 = new Roof(10, 25, roof.getHeight());
     private final Roof roof2 = new Roof(15, 7, roof.getHeight());
     private final Set<Ninja> ninjas = new HashSet<>();
-//    private Batarang batarang;
     private int maxX;
     private int maxY;
     private int health;
     private int score = 0;
     private boolean ended;
 
+    // EFFECTS: constructs Game with initial properties
     public Game(int maxX, int maxY) {
         this.maxX = maxX;
         this.maxY = maxY;
@@ -38,44 +40,24 @@ public class Game {
         ninjas.add(ninja3);
     }
 
-    /**
-     * Progresses the game state, moving Batman
-     */
+    // MODIFIES: this
+    // EFFECTS: during each tick of the game, the game constantly checks for these methods/cases
     public void tick() {
         isBatmanOnSurface();
 
         batman.gravity();
 
-//        System.out.println(batman.isPunching());
-//        System.out.println(batman.getXcoor());
-
-//        throwBatarang();
-
-//        batman.moveRight();
-//        batman.moveLeft();
-//        batman.moveUp();
-//        batman.moveDown();
         handleNinja();
 
         if (ninjas.isEmpty() || health == 0) {
             ended = true;
-//            spawnNewNinja();
         }
     }
 
-    /**
-     * Spawns a new ninja into a valid
-     * position in the game
-     */
-//    public void spawnNewNinja() {
-//        Ninja ninja = new Ninja(7,7);
-//        ninjas.add(ninja);
-//    }
-
-    /**
-     * Checks for ninja that Batman has defeated,
-     * grows the snake and increases score if food is found
-     */
+    // MODIFIES: this
+    // EFFECTS: checks if Batman has come across any ninjas. If so, then damage is received.
+    //          checks if Batman has punched a ninja at the appropriate conditions. If so, ninja is removed
+    //          and score is incremented.
     public void handleNinja() {
         for (Ninja ninja : ninjas) {
             if (ninja.getXcoor() == batman.getXcoor() && ninja.getYcoor() == batman.getYcoor()) {
@@ -97,9 +79,11 @@ public class Game {
 //        snake.grow();
     }
 
-    /**
-     * Checks if Batman has collided with a surface
-     */
+    // MODIFIES: this, Batman
+    // EFFECTS: checks if Batman is on any surface (roof/ground) or at the right edge of the screen.
+    //          If Batman's coordinates are above the ground, he is put on the ground.
+    //          If Batman's coordinates are above a roof, he is put on a roof.
+    //          If Batman's coordinates are neither on a roof nor on the ground, he is falling.
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void isBatmanOnSurface() {
         int bx = batman.getXcoor();
@@ -116,15 +100,6 @@ public class Game {
         int r2x = roof2.getXcoor();
         int r2w = roof2.getWidth();
         int r2h = roof2.getHeight();
-
-//        System.out.println(this.batman.getYcoor());
-//        System.out.println(this.ground.getHeight());
-//        System.out.print(this.batman.getXcoor());
-//        System.out.print(" ");
-//        System.out.print(this.roof.getXcoor());
-//        System.out.println(" ");
-//        System.out.print(this.roof.getXcoor() + this.roof.getWidth());
-//        System.out.println(" ");
 
         if (by + 2 == gh) {
             batman.putOnGround();
@@ -147,116 +122,69 @@ public class Game {
         }
     }
 
-//    // Throws Batarang
-//    // modifies: this
-//    // effects:  throws Batarang from Batman's coordinates
-//    public void throwBatarang() {
-//        batarang = new Batarang(batman.getXcoor(), batman.getYcoor());
-//        batarang.setXcoor(batman.getXcoor());
-//        batarang.setYcoor(batman.getYcoor());
-////        while (batarang.getXcoor() >= 0 && batarang.getXcoor() <= maxX) {
-////            batarang.move(batman.isFacingRight());
-////        }
-//        int target = 0;
-//        while (target < 5) {
-//            batarang.move(batman.isFacingRight());;
-////            delay(100);
-//            target++;
-//        }
-////        batarang.setValid(false);
-//    }
-
-//    private void delay(int milliseconds) {
-//        try {
-//            Thread.sleep(milliseconds);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    public void addScoreToScoreboard() throws IOException {
-//        Scanner name = new Scanner(System.in);
-//        String playerName;
-//
-//        // Enter name and press Enter
-//        System.out.println("Enter Name");
-//        playerName = name.nextLine();
-//
-//        Score s = new Score(playerName, getScore());
-//
-//        Scoreboard sb = new Scoreboard();
-//        sb.addScore(s);
-//
-////        System.out.println(sb.getList().get(0));
-//
-////        String nameAndScore = playerName.concat(": ").concat(Integer.toString(getScore()));
-////
-//////        System.out.println(playerName + ": " + getScore());
-////        System.out.println(nameAndScore);
-////
-////        File file = new File("./data/scoreboard.txt");
-////        FileWriter fr = new FileWriter(file, true);
-////        fr.write(nameAndScore + "\n");
-////        fr.close();
-////
-//////        File file = new File(".");
-//////        for (String fileNames : file.list()) {
-//////            System.out.println(fileNames);
-////        }
-//    }
-
+    // MODIFIES: this
+    // EFFECTS: sets health to a desired value
     public void setHealth(int health) {
         this.health = health;
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears Set of ninjas established in Game
     public void emptyNinjas() {
         this.ninjas.clear();
     }
 
+    // EFFECTS: retrieves Batman established in Game
     public Batman getBatman() {
         return batman;
     }
 
+    // EFFECTS: retrieves Ground established in Game
     public Ground getGround() {
         return ground;
     }
 
+    // EFFECTS: retrieves Roof established in Game
     public Roof getRoof() {
         return roof;
     }
 
+    // EFFECTS: retrieves Roof1 established in Game
     public Roof getRoof1() {
         return roof1;
     }
 
+    // EFFECTS: retrieves Roof2 established in Game
     public Roof getRoof2() {
         return roof2;
     }
 
+    // EFFECTS: retrieves the maxX value given to Game
     public int getMaxX() {
         return maxX;
     }
 
+    // EFFECTS: retrieves the maxY value given to Game
     public int getMaxY() {
         return maxY;
     }
 
-//    public Batarang getBatarang() {
-//        return batarang;
-//    }
-
+    // EFFECTS: retrieves the Set of ninjas established in Game
     public Set<Ninja> getNinjas() {
         return ninjas;
     }
 
+    // EFFECTS: retrieves health
     public int getHealth() {
         return health;
     }
 
+    // EFFECTS: retrieves score
     public int getScore() {
         return score;
     }
 
+    // EFFECTS: shows if the Game has ended or not
     public boolean isEnded() {
         return ended;
     }
