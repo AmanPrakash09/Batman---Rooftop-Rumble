@@ -23,4 +23,17 @@ public class TestNinja {
         assertEquals(4, n2.getXcoor());
         assertEquals(18, n2.getYcoor());
     }
+
+    @Test
+    void testGetters() {
+        n1.setXcoor(9);
+        n1.setYcoor(4);
+        assertEquals(9, n1.getXcoor());
+        assertEquals(4, n1.getYcoor());
+
+        n2.setXcoor(20);
+        n2.setYcoor(19);
+        assertEquals(20, n2.getXcoor());
+        assertEquals(19, n2.getYcoor());
+    }
 }
