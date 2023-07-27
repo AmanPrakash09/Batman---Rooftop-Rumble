@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // this is the Batman class that represents the player
 public class Batman {
 
@@ -7,8 +9,6 @@ public class Batman {
     public static final int DY = 1;
 
     // add fields to represent changing properties of Batman
-    private int health;
-
     private int xcoor;
     private int ycoor;
 
@@ -25,7 +25,6 @@ public class Batman {
 
     // EFFECTS: constructs Batman with initial properties
     public Batman() {
-        this.health = 100;
         this.xcoor = 1;
         this.ycoor = 1;
         this.onGround = false;
@@ -152,14 +151,14 @@ public class Batman {
         this.ycoor = y;
     }
 
+    // EFFECTS: make Batman face right
+    public boolean faceRight() {
+        return this.facingRight = true;
+    }
+
     // EFFECTS: shows if Batman is punching
     public boolean isPunching() {
         return this.punching;
-    }
-
-    // EFFECTS: shows Batman's health
-    public int getHealth() {
-        return this.health;
     }
 
     // EFFECTS: shows Batman's X coordinate
@@ -195,6 +194,19 @@ public class Batman {
     // EFFECTS: shows if Batman is facing right
     public boolean isFacingRight() {
         return this.facingRight;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("xcoor", xcoor);
+        json.put("ycoor", ycoor);
+        json.put("onGround", onGround);
+        json.put("inAir", inAir);
+        json.put("atRightMost", atRightMost);
+        json.put("onRoof", onRoof);
+        json.put("facingRight", facingRight);
+        json.put("punching", punching);
+        return json;
     }
 
 }

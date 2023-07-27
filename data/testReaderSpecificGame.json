@@ -1,0 +1,22 @@
+{
+  "score": 55,
+  "ninjas": [{
+    "dir": 1,
+    "rightBound": 39,
+    "xcoor": 28,
+    "leftBound": 0,
+    "ycoor": 18
+  }],
+  "health": 90,
+  "batman": [{
+    "punching": true,
+    "onGround": true,
+    "facingRight": true,
+    "atRightMost": true,
+    "onRoof": false,
+    "xcoor": 39,
+    "ycoor": 18,
+    "inAir": false
+  }],
+  "batarangs": []
+}

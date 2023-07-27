@@ -15,8 +15,11 @@ import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -26,6 +29,11 @@ public class TerminalGame {
     private WindowBasedTextGUI endGui;
     private int sizeX;
     private int sizeY;
+
+    private static final String JSON_STORE = "./data/game.json";
+//    private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     /**
      * Begins the game and method does not leave execution
@@ -39,6 +47,10 @@ public class TerminalGame {
         this.sizeX = (terminalSize.getColumns() - 1) / 2;
         this.sizeY = terminalSize.getRows() - 2;
 
+//        input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
         game = new Game((terminalSize.getColumns() - 1) / 2,terminalSize.getRows() - 2);
 
         beginTicks();
@@ -46,12 +58,73 @@ public class TerminalGame {
 
     private void beginTicks() throws IOException, InterruptedException {
         while (!game.isEnded() || endGui.getActiveWindow() != null) {
+
+//            String command = null;
+//            input = new Scanner(System.in);
+
+//            displayMenu();
+//            command = input.next();
+//            command = command.toLowerCase();
+//
+//            if (command.equals("q")) {
+//                game.endGame();
+//            } else if (command.equals("c")) {
+//                continue;
+//            } else {
+//                processCommand(command);
+//            }
+
             tick();
             Thread.sleep(1000L / Game.TICKS_PER_SECOND);
         }
 
         addScoreToScoreboard();
         System.exit(0);
+    }
+
+    // EFFECTS: displays menu of options to user
+    private void displayMenu() {
+        System.out.println("\nSelect from:");
+        System.out.println("\ts -> save game to file");
+        System.out.println("\tl -> load game from file");
+        System.out.println("\tq -> quit");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user command
+    private void processCommand(String command) {
+        if (command.equals("s")) {
+            saveGame();
+        } else if (command.equals("l")) {
+            loadGame();
+        } else {
+            System.out.println("Selection not valid...");
+        }
+    }
+
+    // EFFECTS: saves the game to file
+    private void saveGame() {
+        System.out.println("save");
+        try {
+            jsonWriter.open();
+            jsonWriter.write(game);
+            jsonWriter.close();
+            System.out.println("Saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads game from file
+    private void loadGame() {
+        System.out.println("load");
+        try {
+            game = jsonReader.read();
+            System.out.println("Loaded from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     public void addScoreToScoreboard() throws IOException {
@@ -143,6 +216,16 @@ public class TerminalGame {
 //                break;
             case Backspace:
                 game.getBatman().punch();
+                break;
+            case Tab:
+                game.throwBatarang();
+                break;
+            case Character:
+                saveGame();
+                break;
+            case Escape:
+                loadGame();
+                break;
             default:
                 return;
         }
@@ -167,7 +250,7 @@ public class TerminalGame {
         drawRoofs();
         drawHealth();
         drawScore();
-//        drawBatarang();
+        drawBatarang();
         drawNinja();
     }
 
@@ -205,13 +288,25 @@ public class TerminalGame {
 
     private void drawBatman() {
         Batman batman = game.getBatman();
-        drawPosition(batman.getXcoor(), batman.getYcoor(), TextColor.ANSI.GREEN, 'b', true);
+        drawPosition(batman.getXcoor(), batman.getYcoor(), TextColor.ANSI.GREEN, 'b');
 
+    }
+
+    private void drawBatarang() {
+//        Batarang batarang = game.getBatarangs();
+//
+//        if (batarang != null) {
+//            drawPosition(batarang.getXcoor(), batarang.getYcoor(), TextColor.ANSI.WHITE, '-');
+//        }
+
+        for (Batarang batarang : game.getBatarangs()) {
+            drawPosition(batarang.getXcoor(), batarang.getYcoor(), TextColor.ANSI.WHITE, '-');
+        }
     }
 
     private void drawNinja() {
         for (Ninja ninja : game.getNinjas()) {
-            drawPosition(ninja.getXcoor(), ninja.getYcoor(), TextColor.ANSI.RED, 'n', true);
+            drawPosition(ninja.getXcoor(), ninja.getYcoor(), TextColor.ANSI.RED, 'n');
         }
     }
 
@@ -250,14 +345,14 @@ public class TerminalGame {
         roof2.setHeight(roof1.getHeight());
     }
 
-    private void drawPosition(int x, int y, TextColor color, char c, boolean wide) {
+    private void drawPosition(int x, int y, TextColor color, char c) {
         TextGraphics text = screen.newTextGraphics();
         text.setForegroundColor(color);
         text.putString(x * 2, y + 1, String.valueOf(c));
 
-        if (wide) {
-            text.putString(x * 2 + 1, y + 1, String.valueOf(c));
-        }
+//        if (wide) {
+//            text.putString(x * 2 + 1, y + 1, String.valueOf(c));
+//        }
     }
 
     private void drawHealth() {

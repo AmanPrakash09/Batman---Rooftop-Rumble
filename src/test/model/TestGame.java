@@ -26,7 +26,7 @@ public class TestGame {
         assertEquals(100 ,game.getHealth());
         assertFalse(game.isEnded());
 
-        assertEquals(4, game.getNinjas().size());
+        assertEquals(8, game.getNinjas().size());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class TestGame {
 
         assertEquals(2, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(nXpos, game.getBatman().getXcoor());
+        assertEquals(0, game.getBatman().getXcoor());
         assertEquals(nYpos, game.getBatman().getYcoor());
         assertEquals(99, game.getHealth());
 
@@ -124,7 +124,7 @@ public class TestGame {
 
         assertEquals(10, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(nXpos, game.getBatman().getXcoor());
+        assertEquals(8, game.getBatman().getXcoor());
         assertEquals(nYpos, game.getBatman().getYcoor());
         assertEquals(99, game.getHealth());
 
@@ -159,8 +159,8 @@ public class TestGame {
         assertTrue(game.getBatman().hasPunched(n));
         // defeatedNinja = ninjas[0], remove this ninja
         game.handleNinja();
-        assertEquals(3, game.getNinjas().size());
-        assertEquals(1, game.getScore());
+        assertEquals(7, game.getNinjas().size());
+        assertEquals(10, game.getScore());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBatman {
     private Batman batman;
-    private Ninja ninja = new Ninja(10, 10);
+    private Ninja ninja = new Ninja(10, 10, 0, 1, 1);
 
     @BeforeEach
     void runBefore() {
@@ -16,7 +17,6 @@ public class TestBatman {
 
     @Test
     void testConstructor() {
-        assertEquals(100, batman.getHealth());
         assertEquals(1, batman.getXcoor());
         assertEquals(1, batman.getYcoor());
         assertFalse(batman.isOnGround());
@@ -94,6 +94,20 @@ public class TestBatman {
         batman.fall();
         batman.gravity();
         assertEquals(2, batman.getYcoor());
+    }
+
+    @Test
+    void TestGravityGround() {
+        batman.putOnGround();
+        batman.gravity();
+        assertEquals(1, batman.getYcoor());
+    }
+
+    @Test
+    void TestGravityRoof() {
+        batman.putOnRoof();
+        batman.gravity();
+        assertEquals(1, batman.getYcoor());
     }
 
     @Test
@@ -196,4 +210,28 @@ public class TestBatman {
         assertEquals(11, batman.getYcoor());
         assertFalse(batman.isPunching());
     }
+
+//    @Test
+//    void testToJson() {
+//        JSONObject jsonTest = batman.toJson();
+////        this.xcoor = 1;
+////        this.ycoor = 1;
+////        this.onGround = false;
+////        this.inAir = true;
+////        this.onRoof = false;
+////        this.atRightMost = false;
+////        this.facingRight = true;
+////        this.punching = false;
+//        JSONObject json = new JSONObject();
+//        json.put("xcoor", 1);
+//        json.put("ycoor", 1);
+//        json.put("onGround", false);
+//        json.put("inAir", true);
+//        json.put("atRightMost", false);
+//        json.put("onRoof", false);
+//        json.put("facingRight", true);
+//        json.put("punching", false);
+//
+//        assertEquals(jsonTest, json);
+//    }
 }

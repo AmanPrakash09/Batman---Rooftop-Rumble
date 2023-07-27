@@ -1,0 +1,164 @@
+{
+    "score": 0,
+    "ninjas": [
+        {
+            "dir": 0,
+            "rightBound": 20,
+            "xcoor": 9,
+            "leftBound": 5,
+            "ycoor": 13
+        },
+        {
+            "dir": -1,
+            "rightBound": 39,
+            "xcoor": 13,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": 0,
+            "rightBound": 20,
+            "xcoor": 13,
+            "leftBound": 5,
+            "ycoor": 13
+        },
+        {
+            "dir": 1,
+            "rightBound": 39,
+            "xcoor": 12,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": -1,
+            "rightBound": 39,
+            "xcoor": 20,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": -1,
+            "rightBound": 39,
+            "xcoor": 1,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": 1,
+            "rightBound": 20,
+            "xcoor": 8,
+            "leftBound": 5,
+            "ycoor": 13
+        },
+        {
+            "dir": -1,
+            "rightBound": 20,
+            "xcoor": 18,
+            "leftBound": 5,
+            "ycoor": 13
+        }
+    ],
+    "health": 98,
+    "batman": [{
+        "punching": false,
+        "onGround": false,
+        "facingRight": false,
+        "atRightMost": false,
+        "onRoof": true,
+        "xcoor": 16,
+        "ycoor": 3,
+        "inAir": false
+    }],
+    "batarangs": [
+        {
+            "dir": 1,
+            "xcoor": 39,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 38,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 37,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 36,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 35,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 34,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 33,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 32,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 31,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 30,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 29,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 28,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 27,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 26,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 25,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 24,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 23,
+            "ycoor": 3
+        },
+        {
+            "dir": 1,
+            "xcoor": 22,
+            "ycoor": 3
+        }
+    ]
+}
