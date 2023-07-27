@@ -23,18 +23,8 @@ public class Ninja {
         this.rightBound = rightBound;
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: moves in the direction where batman is if they are both on the same y coordinate
-//    public void move(int batmanX, int batmanY) {
-//        if (batmanY == ycoor) {
-//            if (batmanX < xcoor) {
-//                xcoor = xcoor - 1;
-//            } else if (batmanX > xcoor) {
-//                xcoor = xcoor + 1;
-//            }
-//        }
-//    }
-
+    // MODIFIES: this
+    // EFFECTS: updates the ninja's x coordinate. If it runs it's left or right bound, the direction switches
     public void move() {
         if (xcoor == leftBound || xcoor == rightBound) {
             dir *= -1;
@@ -79,6 +69,7 @@ public class Ninja {
         return this.rightBound;
     }
 
+    // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("xcoor", xcoor);

@@ -2,20 +2,6 @@
     "score": 0,
     "ninjas": [
         {
-            "dir": 1,
-            "rightBound": 20,
-            "xcoor": 7,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": -1,
-            "rightBound": 50,
-            "xcoor": 17,
-            "leftBound": 0,
-            "ycoor": 18
-        },
-        {
             "dir": 0,
             "rightBound": 20,
             "xcoor": 13,
@@ -37,16 +23,30 @@
             "ycoor": 18
         },
         {
-            "dir": -1,
+            "dir": 0,
             "rightBound": 20,
-            "xcoor": 17,
+            "xcoor": 9,
             "leftBound": 5,
             "ycoor": 41
         },
         {
-            "dir": 0,
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 17,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": 1,
             "rightBound": 20,
-            "xcoor": 9,
+            "xcoor": 7,
+            "leftBound": 5,
+            "ycoor": 41
+        },
+        {
+            "dir": -1,
+            "rightBound": 20,
+            "xcoor": 17,
             "leftBound": 5,
             "ycoor": 41
         },

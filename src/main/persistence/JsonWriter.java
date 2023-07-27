@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 
+// CITATION: framework of code was taken from JsonSerializationDemo
 // Represents a writer that writes JSON representation of workroom to file
 public class JsonWriter {
     private static final int TAB = 4;

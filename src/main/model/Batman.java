@@ -196,6 +196,7 @@ public class Batman {
         return this.facingRight;
     }
 
+    // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("xcoor", xcoor);

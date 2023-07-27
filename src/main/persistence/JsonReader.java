@@ -15,6 +15,7 @@ import model.Game;
 import model.Ninja;
 import org.json.*;
 
+// CITATION: framework of code was taken from JsonSerializationDemo
 // Represents a reader that reads game from JSON data stored in file
 public class JsonReader {
     private String source;
@@ -45,7 +46,6 @@ public class JsonReader {
 
     // EFFECTS: parses game from JSON object and returns it
     private Game parseGame(JSONObject jsonObject) throws IOException {
-//        String name = jsonObject.getString("name");
 
         Screen screen = new DefaultTerminalFactory().createScreen();
         TerminalSize terminalSize = screen.getTerminalSize();

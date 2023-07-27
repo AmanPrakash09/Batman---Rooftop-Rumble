@@ -1,5 +1,8 @@
 package model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class Scoreboard {
     // MODIFIES: this
     // EFFECTS: if user has already played the game, their score gets updated.
     //          Otherwise, their name and score is added.
-    public void addScore(Score score) {
+    public void addScore(Score score) throws IOException {
         if (userList.contains(score.getName())) {
             int index = userList.indexOf(score.getName());
 //            scoreList.add(score.getScore());

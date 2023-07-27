@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class TestScoreboard {
     }
 
     @Test
-    void testOneAdded() {
+    void testOneAdded() throws IOException {
         sl.addScore(s);
         assertEquals(1, sl.getSize());
         assertEquals("A", sl.getUserList().get(0));
@@ -42,7 +43,7 @@ public class TestScoreboard {
     }
 
     @Test
-    void testAllAdded() {
+    void testAllAdded() throws IOException {
         sl.addScore(s);
         sl.addScore(s1);
         sl.addScore(s2);

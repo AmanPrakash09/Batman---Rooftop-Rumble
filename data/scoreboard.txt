@@ -1,0 +1,5 @@
+Aman: 65
+Someone Else: 40
+Batman: 80
+Average CPSC 210 Student: 55
+Pacman: 45

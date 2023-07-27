@@ -19,8 +19,11 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalGame {
@@ -139,6 +142,19 @@ public class TerminalGame {
 
         Scoreboard sb = new Scoreboard();
         sb.addScore(s);
+
+        List<String> userList = sb.getUserList();
+        List<Integer> scoreList = sb.getScoreList();
+
+        File file = new File("./data/scoreboard.txt");
+        FileWriter fr = new FileWriter(file, true);
+
+        for (int i = 0; i < userList.size(); i++) {
+            String nameAndScore = userList.get(i).concat(": ").concat(Integer.toString(scoreList.get(i)));
+            fr.write(nameAndScore + "\n");
+        }
+
+        fr.close();
 
 //        System.out.println(sb.getList().get(0));
 

@@ -473,6 +473,15 @@ public class TestGame {
     }
 
     @Test
+    void testBatmanIsFalling() {
+        // initially Batman is at (1, 1)
+        game.isBatmanOnSurface();
+        assertFalse(game.getBatman().isOnGround());
+        assertTrue(game.getBatman().isInAir());
+        assertFalse(game.getBatman().isOnRoof());
+    }
+
+    @Test
     void testIsBatmanOnSurfaceRight() {
         game.getBatman().setXcoor(50);
         game.isBatmanOnSurface();

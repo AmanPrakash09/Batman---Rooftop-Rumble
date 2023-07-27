@@ -51,17 +51,11 @@ public class Game {
 
         int ninjaRoof1Y = maxY - 2 - Roof.SPACE - 2;
 
-//        System.out.println(ninjaRoof1Y);
-
         Ninja ninja4 = new Ninja(7,ninjaRoof1Y, 1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
         Ninja ninja5 = new Ninja(9,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
         Ninja ninja6 = new Ninja(13,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
         Ninja ninja7 = new Ninja(17,ninjaRoof1Y, -1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
 
-//        Ninja ninja8 = new Ninja(2,18, 1, 0, maxX);
-//        Ninja ninja9 = new Ninja(10,18, -1, 0, maxX);
-//        Ninja ninja10 = new Ninja(15,18, 1, 0, maxX);
-//        Ninja ninja11 = new Ninja(17,18, -1, 0, maxX);
         ninjas.add(ninja);
         ninjas.add(ninja1);
         ninjas.add(ninja2);
@@ -79,7 +73,6 @@ public class Game {
         isBatmanOnSurface();
 
         batman.gravity();
-//        batman.throwBatarang();
 
         handleNinja();
         moveNinja();
@@ -121,28 +114,18 @@ public class Game {
 
         ninjas.remove(defeatedNinja);
         score += 10;
-//        snake.grow();
     }
 
-    // modifies: this
-    // effects: moves the missiles
+    // MODIFIES: this
+    // EFFECTS: moves the ninjas
     public void moveNinja() {
-//        int count = 0;
-//        int dir = 1;
         for (Ninja next : ninjas) {
-////            next.move(getBatman().isFacingRight());
-//            if (count % 2 == 0) {
-//                dir *= -1;
-//            }
-//            next.move(dir);
-//            count++;
-//            if (next.getXcoor() > maxX || next.getXcoor() < 0) {
-//                next.switchDir();
-//            }
             next.move();
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes any batarangs that have moved out of the screen
     public void lostBatarangs() {
         List<Batarang> batarangsToRemove = new ArrayList<Batarang>();
 
@@ -155,9 +138,9 @@ public class Game {
         batarangs.removeAll(batarangsToRemove);
     }
 
-    // Checks for collisions between a ninja and a batarang
-    // modifies: this
-    // effects:  removes any ninja that has been hit with a batarang
+    // CITATION: framework of this method was taken from SpaceInvaders
+    // MODIFIES: this
+    // EFFECTS:  removes any ninja that has been hit with a batarang
     //           and removes corresponding batarang from game
     public void batarangAttack() {
         List<Ninja> ninjasToRemove = new ArrayList<Ninja>();
@@ -173,7 +156,11 @@ public class Game {
         batarangs.removeAll(batarangsToRemove);
     }
 
-    // Exercise:  fill in the documentation for this method
+    // CITATION: framework of this method was taken from SpaceInvaders
+    // MODIFIES: this
+    // EFFECTS:  helper method for batarangAttack.
+    //           checks if batarang's coordinates matches ninja's coordinates.
+    //           if so, adds batarang to remove list
     public boolean checkNinjaHit(Ninja target, List<Batarang> batarangsToRemove) {
         for (Batarang next : batarangs) {
             if (target.getXcoor() == next.getXcoor() && target.getYcoor() == next.getYcoor()) {
@@ -186,9 +173,8 @@ public class Game {
         return false;
     }
 
-    // updates the missiles
-    // modifies: this
-    // effects: moves the missiles
+    // MODIFIES: this
+    // EFFECTS: moves the batarangs
     public void moveBatarangs() {
         for (Batarang next : batarangs) {
 //            next.move(getBatman().isFacingRight());
@@ -196,14 +182,11 @@ public class Game {
         }
     }
 
-    // Fires a missile
     // modifies: this
-    // effects:  fires a missile if max number of missiles in play has
-    //           not been exceeded, otherwise silently returns
+    // effects:  throws a batarang from the coordinates of Batman
     public void throwBatarang() {
         Batarang b = new Batarang(batman.getXcoor(), batman.getYcoor(), batman.isFacingRight());
         batarangs.add(b);
-//        System.out.println("fire");
     }
 
     // MODIFIES: this, Batman
@@ -249,6 +232,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 //        json.put("name", name);
