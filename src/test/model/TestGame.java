@@ -478,4 +478,229 @@ public class TestGame {
         game.isBatmanOnSurface();
         assertTrue(game.getBatman().isAtRightMost());
     }
+
+    @Test
+    void testHandleNinjaKnockbackLeft() {
+//        Ninja n = game.getNinjas().stream().findFirst().get();
+//        n.setXcoor(6);
+//        n.setYcoor(18);
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(6,18,0,0,50);
+        game.addNinja(n);
+
+        Batman batman = game.getBatman();
+        batman.faceRight();
+        batman.setXcoor(6);
+        batman.setYcoor(18);
+
+        game.handleNinja();
+
+        assertEquals(4, batman.getXcoor());
+        assertEquals(99, game.getHealth());
+    }
+
+    @Test
+    void testHandleNinjaKnockbackRight() {
+//        Ninja n = game.getNinjas().stream().findFirst().get();
+//        n.setXcoor(4);
+//        n.setYcoor(18);
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(4,18,0,0,50);
+        game.addNinja(n);
+
+        Batman batman = game.getBatman();
+        batman.moveLeft();
+        batman.setXcoor(4);
+        batman.setYcoor(18);
+
+        game.handleNinja();
+
+        assertEquals(6, batman.getXcoor());
+        assertEquals(99, game.getHealth());
+    }
+
+    @Test
+    void testHandleNinjaNothingHappens() {
+//        Ninja n = game.getNinjas().stream().findFirst().get();
+//        n.setXcoor(4);
+//        n.setYcoor(18);
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(4,18,0,0,50);
+        game.addNinja(n);
+
+        Batman batman = game.getBatman();
+        batman.moveLeft();
+        batman.setXcoor(5);
+        batman.setYcoor(18);
+
+        game.handleNinja();
+
+        assertEquals(5, batman.getXcoor());
+        assertEquals(100, game.getHealth());
+
+        batman.setXcoor(4);
+        batman.setYcoor(19);
+
+        assertEquals(4, batman.getXcoor());
+        assertEquals(100, game.getHealth());
+
+        batman.setXcoor(5);
+        batman.setYcoor(19);
+
+        assertEquals(5, batman.getXcoor());
+        assertEquals(100, game.getHealth());
+    }
+
+    @Test
+    void testLostBatarangRightBound() {
+        Batarang b1 = new Batarang(20,20,true);
+        Batarang b2 = new Batarang(30,20,true);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(2, game.getBatarangs().size());
+
+        game.getBatarangs().get(0).setXcoor(51);
+        game.lostBatarangs();
+
+        assertEquals(1, game.getBatarangs().size());
+    }
+
+    @Test
+    void testLostBatarangLeftBound() {
+        Batarang b1 = new Batarang(20,20,false);
+        Batarang b2 = new Batarang(10,20,false);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(2, game.getBatarangs().size());
+
+        game.getBatarangs().get(0).setXcoor(-1);
+        game.lostBatarangs();
+
+        assertEquals(1, game.getBatarangs().size());
+    }
+
+    @Test
+    void testCheckNinjaHitSuccess() {
+        game.emptyNinjas();
+        game.emptyBatarangs();
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(5,5,0,0,50);
+        game.addNinja(n);
+
+        Batarang b1 = new Batarang(5,5,false);
+        Batarang b2 = new Batarang(7,5,false);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(2, game.getBatarangs().size());
+        assertTrue(game.checkNinjaHit(n, game.getBatarangs()));
+        // number of Batarangs will increase for now
+        assertEquals(3, game.getBatarangs().size());
+        assertEquals(5, game.getScore());
+    }
+
+    @Test
+    void testCheckNinjaHitFail() {
+        game.emptyNinjas();
+        game.emptyBatarangs();
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(5,5,0,0,50);
+        game.addNinja(n);
+
+        Batarang b1 = new Batarang(6,5,false);
+        Batarang b2 = new Batarang(7,5,false);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(2, game.getBatarangs().size());
+        assertEquals(6, game.getBatarangs().get(0).getXcoor());
+        assertEquals(7, game.getBatarangs().get(1).getXcoor());
+        assertFalse(game.checkNinjaHit(n, game.getBatarangs()));
+        // number of Batarangs will remain the same
+        assertEquals(2, game.getBatarangs().size());
+        assertEquals(0, game.getScore());
+    }
+
+    @Test
+    void testBatarangAttack() {
+        game.emptyNinjas();
+        game.emptyBatarangs();
+
+        game.emptyNinjas();
+        Ninja n = new Ninja(5,5,0,0,50);
+        game.addNinja(n);
+
+        Batarang b1 = new Batarang(5,5,false);
+        Batarang b2 = new Batarang(7,5,false);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(1, game.getNinjas().size());
+        assertEquals(2, game.getBatarangs().size());
+        game.batarangAttack();
+        // number of Ninjas and Batarangs will decrease
+        assertEquals(0, game.getNinjas().size());
+        assertEquals(1, game.getBatarangs().size());
+        assertEquals(5, game.getScore());
+    }
+
+    @Test
+    void testMoveBatarangs() {
+        game.emptyBatarangs();
+
+        Batarang b1 = new Batarang(5,5,false);
+        Batarang b2 = new Batarang(7,5,true);
+        game.addBatarang(b1);
+        game.addBatarang(b2);
+
+        assertEquals(5, game.getBatarangs().get(0).getXcoor());
+        assertEquals(7, game.getBatarangs().get(1).getXcoor());
+
+        game.moveBatarangs();
+
+        assertEquals(4, game.getBatarangs().get(0).getXcoor());
+        assertEquals(8, game.getBatarangs().get(1).getXcoor());
+    }
+
+    @Test
+    void testThrowBatarang() {
+        Batman batman = game.getBatman();
+        assertEquals(0, game.getBatarangs().size());
+
+        game.throwBatarang();
+        assertEquals(1, game.getBatarangs().size());
+        assertEquals(1, game.getBatarangs().get(0).getXcoor());
+        assertEquals(1, game.getBatarangs().get(0).getYcoor());
+        assertEquals(1, game.getBatarangs().get(0).getDir());
+    }
+
+    @Test
+    void testEndGame() {
+        game.endGame();
+        assertTrue(game.isEnded());
+    }
+
+    @Test
+    void testSetScore() {
+        game.setScore(21);
+        assertEquals(21, game.getScore());
+    }
+
+    @Test
+    void testSetBatman() {
+        game.getBatman().setXcoor(21);
+        game.getBatman().setYcoor(21);
+
+        Batman batman = new Batman();
+        game.setBatman(batman);
+        assertEquals(1, game.getBatman().getXcoor());
+        assertEquals(1, game.getBatman().getYcoor());
+    }
 }

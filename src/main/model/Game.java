@@ -155,16 +155,16 @@ public class Game {
         batarangs.removeAll(batarangsToRemove);
     }
 
-    // Checks for collisions between an invader and a missile
+    // Checks for collisions between a ninja and a batarang
     // modifies: this
-    // effects:  removes any invader that has been shot with a missile
-    //           and removes corresponding missile from play
-    private void batarangAttack() {
+    // effects:  removes any ninja that has been hit with a batarang
+    //           and removes corresponding batarang from game
+    public void batarangAttack() {
         List<Ninja> ninjasToRemove = new ArrayList<Ninja>();
         List<Batarang> batarangsToRemove = new ArrayList<Batarang>();
 
         for (Ninja target : ninjas) {
-            if (checkInvaderHit(target, batarangsToRemove)) {
+            if (checkNinjaHit(target, batarangsToRemove)) {
                 ninjasToRemove.add(target);
             }
         }
@@ -174,7 +174,7 @@ public class Game {
     }
 
     // Exercise:  fill in the documentation for this method
-    private boolean checkInvaderHit(Ninja target, List<Batarang> batarangsToRemove) {
+    public boolean checkNinjaHit(Ninja target, List<Batarang> batarangsToRemove) {
         for (Batarang next : batarangs) {
             if (target.getXcoor() == next.getXcoor() && target.getYcoor() == next.getYcoor()) {
                 batarangsToRemove.add(next);
@@ -203,7 +203,7 @@ public class Game {
     public void throwBatarang() {
         Batarang b = new Batarang(batman.getXcoor(), batman.getYcoor(), batman.isFacingRight());
         batarangs.add(b);
-        System.out.println("fire");
+//        System.out.println("fire");
     }
 
     // MODIFIES: this, Batman

@@ -3,6 +3,34 @@
     "ninjas": [
         {
             "dir": 1,
+            "rightBound": 20,
+            "xcoor": 7,
+            "leftBound": 5,
+            "ycoor": 41
+        },
+        {
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 17,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": 0,
+            "rightBound": 20,
+            "xcoor": 13,
+            "leftBound": 5,
+            "ycoor": 41
+        },
+        {
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 10,
+            "leftBound": 0,
+            "ycoor": 18
+        },
+        {
+            "dir": 1,
             "rightBound": 50,
             "xcoor": 2,
             "leftBound": 0,
@@ -23,37 +51,9 @@
             "ycoor": 41
         },
         {
-            "dir": 0,
-            "rightBound": 20,
-            "xcoor": 13,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": 1,
-            "rightBound": 20,
-            "xcoor": 7,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
             "dir": 1,
             "rightBound": 50,
             "xcoor": 15,
-            "leftBound": 0,
-            "ycoor": 18
-        },
-        {
-            "dir": -1,
-            "rightBound": 50,
-            "xcoor": 17,
-            "leftBound": 0,
-            "ycoor": 18
-        },
-        {
-            "dir": -1,
-            "rightBound": 50,
-            "xcoor": 10,
             "leftBound": 0,
             "ycoor": 18
         }
