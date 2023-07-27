@@ -22,3 +22,6 @@ This will be saved and a high score screen will appear similar to an arcade game
 - As a user, I want to be able to traverse through different layers of the map.
 - As a user, I want to be able to damage enemies.
 - As a user, I want to be able to receive damage from enemies.
+- As a user, I want to be able to throw a Batarang at an enemy to cause damage.
+- As a user, I want to be able to save my previous game to file (if I so choose).
+- As a user, I want to be able to be able to load my previous game from file (if I so choose).
