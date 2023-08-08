@@ -121,7 +121,6 @@ public class AddScorePanel extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             name = nameField.getText();
-//            int score = game.getScore();
             DefaultTableModel model = (DefaultTableModel) table.getModel();
 
             if (!name.isBlank()) {
@@ -150,13 +149,19 @@ public class AddScorePanel extends JFrame {
                 int insertIndex = scoreboard.getScoreList().indexOf(score);
                 model.insertRow(insertIndex, new Object[]{name, score});
 
-                nameField.setText("");
-                nameField.setEnabled(false);
-                addButton.setEnabled(false);
-
-                removeButton.setEnabled(true);
+                updateButtons();
             }
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the name field and "Add Score" button to false so that the user cannot interact with them anymore.
+    //          User can now use the "Remove Score" button to remove their score.
+    public void updateButtons() {
+        nameField.setText("");
+        nameField.setEnabled(false);
+        addButton.setEnabled(false);
+        removeButton.setEnabled(true);
     }
 
     // MODIFIES: this
