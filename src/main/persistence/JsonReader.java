@@ -114,7 +114,6 @@ public class JsonReader {
 
     // MODIFIES: g
     // EFFECTS: parses batman from JSON object and adds it to game
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void addBatman(Game g, JSONObject jsonObject) {
         int xcoor = jsonObject.getInt("xcoor");
         int ycoor = jsonObject.getInt("ycoor");
@@ -129,6 +128,15 @@ public class JsonReader {
         batman.setXcoor(xcoor);
         batman.setYcoor(ycoor);
 
+        updateBatman(onGround, inAir, atRightMost, onRoof, facingRight, punching, batman);
+
+        g.setBatman(batman);
+    }
+
+    // MODIFIES: g, Batman
+    // EFFECTS: updates the Booleans Batman relies on
+    public void updateBatman(Boolean onGround, Boolean inAir, Boolean atRightMost, Boolean onRoof, Boolean facingRight,
+                             Boolean punching, Batman batman) {
         if (onGround) {
             batman.putOnGround();
         }
@@ -152,7 +160,5 @@ public class JsonReader {
         if (punching) {
             batman.punch();
         }
-
-        g.setBatman(batman);
     }
 }

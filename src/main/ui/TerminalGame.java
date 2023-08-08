@@ -193,7 +193,6 @@ public class TerminalGame {
     /**
      * Control's of Batman
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void handleUserInput() throws IOException {
         KeyStroke stroke = screen.pollInput();
 
@@ -201,22 +200,12 @@ public class TerminalGame {
             return;
         }
 
-//        KeyStroke keyStroke;
-//        try {
-//            keyStroke = screen.readInput();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return;
-//        }
-//
-//        // Retrieve the KeyEvent from the KeyStroke
-//        Character keyEvent = keyStroke.getCharacter();
-
-//        if (stroke.getCharacter() != null) {
-//            return;
-//        }
-
         KeyType type = stroke.getKeyType();
+        switchCases(type);
+        switchCases1(type);
+    }
+
+    public void switchCases(KeyType type) {
         switch (type) {
             case ArrowUp:
                 game.getBatman().moveUp();
@@ -230,9 +219,11 @@ public class TerminalGame {
             case ArrowLeft:
                 game.getBatman().moveLeft();
                 break;
-//            case Escape:
-//                game.getBatman().throwBatarang();
-//                break;
+        }
+    }
+
+    public void switchCases1(KeyType type) {
+        switch (type) {
             case Backspace:
                 game.getBatman().punch();
                 break;
@@ -248,11 +239,6 @@ public class TerminalGame {
             default:
                 return;
         }
-
-//        if (stroke.getCharacter() == 'w') {
-//            game.throwBatarang();
-//        }
-
     }
 
     private void render() {

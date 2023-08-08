@@ -197,7 +197,6 @@ public class Game {
     //          If Batman's coordinates are above the ground, he is put on the ground.
     //          If Batman's coordinates are above a roof, he is put on a roof.
     //          If Batman's coordinates are neither on a roof nor on the ground, he is falling.
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public void isBatmanOnSurface() {
         int bx = batman.getXcoor();
         int by = batman.getYcoor();
@@ -214,26 +213,48 @@ public class Game {
         int r2w = roof2.getWidth();
         int r2h = roof2.getHeight();
 
+        checkGround(by, gh);
+
+        checkRoof(bx, by, rx, rh, rw, r1x, r1h, r1w, r2x, r2h, r2w);
+
+        checkFall(bx, by, rx, rh, rw, r1x, r1h, r1w, r2x, r2h, r2w);
+
+        if (bx == maxX) {
+            batman.putAtRightEdge();
+        }
+    }
+
+    // MODIFIES: this, Batman
+    // EFFECTS: If Batman's coordinates are above the ground, he is put on the ground.
+    public void checkGround(int by, int gh) {
         if (by + Batman.SIZE_Y == gh) {
             batman.putOnGround();
         }
+    }
 
+    // MODIFIES: this, Batman
+    // EFFECTS: If Batman's coordinates are above a roof, he is put on a roof.
+    public void checkRoof(int bx, int by, int rx, int rh, int rw,
+                          int r1x, int r1h, int r1w,
+                          int r2x, int r2h, int r2w) {
         if ((by + Batman.SIZE_Y == rh && bx >= rx && bx <= rx + rw)
                 || (by + Batman.SIZE_Y == r1h && bx >= r1x && bx <= r1x + r1w)
                 || (by + Batman.SIZE_Y == r2h && bx >= r2x && bx <= r2x + r2w)) {
             batman.putOnRoof();
         }
+    }
 
+    // MODIFIES: this, Batman
+    // EFFECTS: If Batman's coordinates are neither on a roof nor on the ground, he is falling.
+    public void checkFall(int bx, int by, int rx, int rh, int rw,
+                          int r1x, int r1h, int r1w,
+                          int r2x, int r2h, int r2w) {
         if (batman.isOnRoof()) {
             if ((bx < rx || bx > rx + rw || by + Batman.SIZE_Y != rh)
                     && (bx < r1x || bx > r1x + r1w || by + Batman.SIZE_Y != r1h)
                     && (bx < r2x || bx > r2x + r2w || by + Batman.SIZE_Y != r2h)) {
                 batman.fall();
             }
-        }
-
-        if (bx == maxX) {
-            batman.putAtRightEdge();
         }
     }
 

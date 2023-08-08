@@ -10,17 +10,31 @@
         },
         {
             "dir": -1,
-            "rightBound": 50,
-            "xcoor": 170,
-            "leftBound": 0,
-            "ycoor": -57
-        },
-        {
-            "dir": -1,
             "rightBound": 200,
             "xcoor": 170,
             "leftBound": 50,
             "ycoor": -107
+        },
+        {
+            "dir": 0,
+            "rightBound": 200,
+            "xcoor": 90,
+            "leftBound": 50,
+            "ycoor": -107
+        },
+        {
+            "dir": 0,
+            "rightBound": 200,
+            "xcoor": 130,
+            "leftBound": 50,
+            "ycoor": -107
+        },
+        {
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 100,
+            "leftBound": 0,
+            "ycoor": -57
         },
         {
             "dir": 1,
@@ -39,23 +53,9 @@
         {
             "dir": -1,
             "rightBound": 50,
-            "xcoor": 100,
+            "xcoor": 170,
             "leftBound": 0,
             "ycoor": -57
-        },
-        {
-            "dir": 0,
-            "rightBound": 200,
-            "xcoor": 130,
-            "leftBound": 50,
-            "ycoor": -107
-        },
-        {
-            "dir": 0,
-            "rightBound": 200,
-            "xcoor": 90,
-            "leftBound": 50,
-            "ycoor": -107
         }
     ],
     "health": 100,

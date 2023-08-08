@@ -23,3 +23,18 @@ This will be saved to a high score similar to an arcade game.
 - As a user, I want to be able to throw a Batarang at an enemy to cause damage.
 - As a user, I want to be able to save my previous game to file (if I so choose).
 - As a user, I want to be able to be able to load my previous game from file (if I so choose).
+
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by completing the game, 
+  entering your name in the text field at the bottom of the Scoreboard panel, and then clicking the
+  "Add Score" button. This will add your name and score to the displayed Scoreboard. 
+- You can generate the second required action related to adding Xs to a Y by clicking the "Remove Score" button.
+  This removes the score you just added to the Scoreboard. This can only be done after adding your score in the 
+  first required action.
+- You can locate my visual component by going to the Main class in the UI folder of my project. This will launch 
+  the GUI of my project.
+- You can save the state of my application by pressing 's' while playing the game. Then, a splash screen will
+appear prompting the user if they are sure they want to save the game (Yes/No options).
+- You can reload the state of my application by pressing 'l' while playing the game. Then, a splash screen will
+  appear prompting the user if they are sure they want to load the game (Yes/No options).

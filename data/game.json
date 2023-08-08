@@ -2,37 +2,30 @@
     "score": 0,
     "ninjas": [
         {
-            "dir": -1,
+            "dir": 1,
             "rightBound": 500,
-            "xcoor": 474,
+            "xcoor": 350,
             "leftBound": 0,
             "ycoor": 393
         },
         {
             "dir": 1,
             "rightBound": 500,
-            "xcoor": 396,
+            "xcoor": 480,
             "leftBound": 0,
             "ycoor": 393
         },
         {
-            "dir": -1,
-            "rightBound": 200,
-            "xcoor": 94,
-            "leftBound": 50,
-            "ycoor": 343
-        },
-        {
             "dir": 1,
-            "rightBound": 200,
-            "xcoor": 146,
-            "leftBound": 50,
-            "ycoor": 343
+            "rightBound": 500,
+            "xcoor": 160,
+            "leftBound": 0,
+            "ycoor": 393
         },
         {
             "dir": 1,
             "rightBound": 500,
-            "xcoor": 206,
+            "xcoor": 230,
             "leftBound": 0,
             "ycoor": 393
         },
@@ -44,6 +37,13 @@
             "ycoor": 343
         },
         {
+            "dir": 1,
+            "rightBound": 200,
+            "xcoor": 100,
+            "leftBound": 50,
+            "ycoor": 343
+        },
+        {
             "dir": 0,
             "rightBound": 200,
             "xcoor": 90,
@@ -51,23 +51,104 @@
             "ycoor": 343
         },
         {
-            "dir": 1,
-            "rightBound": 500,
-            "xcoor": 276,
-            "leftBound": 0,
-            "ycoor": 393
+            "dir": -1,
+            "rightBound": 200,
+            "xcoor": 140,
+            "leftBound": 50,
+            "ycoor": 343
         }
     ],
     "health": 100,
     "batman": [{
         "punching": false,
         "onGround": false,
-        "facingRight": true,
+        "facingRight": false,
         "atRightMost": false,
-        "onRoof": false,
-        "xcoor": 150,
-        "ycoor": 190,
-        "inAir": true
+        "onRoof": true,
+        "xcoor": 270,
+        "ycoor": 293,
+        "inAir": false
     }],
-    "batarangs": []
+    "batarangs": [
+        {
+            "dir": -1,
+            "xcoor": 105,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 115,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 125,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 140,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 150,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 160,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 170,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 180,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 190,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 200,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 210,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 220,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 235,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 245,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 255,
+            "ycoor": 293
+        },
+        {
+            "dir": -1,
+            "xcoor": 265,
+            "ycoor": 293
+        }
+    ]
 }
