@@ -60,4 +60,48 @@ public class JsonReaderTest extends JsonTest{
         }
     }
 
+    @Test
+    void testReaderSpecificGame2() {
+        JsonReader reader = new JsonReader("./data/testReaderSpecificGame2.json");
+        try {
+            Game g = reader.read();
+            assertEquals(35, g.getScore());
+            Ninja[] nArray = g.getNinjas().toArray(new Ninja[g.getNinjas().size()]);
+            checkNinjas(479, 393, 1, 0, 500, nArray[0]);
+            assertEquals(100, g.getHealth());
+            checkBatman(210, 243, false, false, true, false, true, false, g.getBatman());
+            List<Batarang> bList = g.getBatarangs();
+            assertEquals(7, bList.size());
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    void testReaderSpecificGame3() {
+        JsonReader reader = new JsonReader("./data/testReaderSpecificGame3.json");
+        try {
+            Game g = reader.read();
+            assertEquals(35, g.getScore());
+            Ninja[] nArray = g.getNinjas().toArray(new Ninja[g.getNinjas().size()]);
+            checkNinjas(248, 393, -1, 0, 500, nArray[0]);
+            assertEquals(100, g.getHealth());
+//            System.out.println(g.getBatman().isInAir());
+            checkBatman(160, 187, false, false, true, false,
+                    false, true, g.getBatman());
+//            assertEquals(160, g.getBatman().getXcoor());
+//            assertEquals(187, g.getBatman().getYcoor());
+//            assertFalse(g.getBatman().isPunching());
+//            assertFalse(g.getBatman().isOnGround());
+//            assertTrue(g.getBatman().isFacingRight());
+//            assertFalse(g.getBatman().isAtRightMost());
+//            assertFalse(g.getBatman().isOnRoof());
+//            assertTrue(g.getBatman().isInAir());
+            List<Batarang> bList = g.getBatarangs();
+            assertEquals(0, bList.size());
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
 }

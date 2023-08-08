@@ -2,60 +2,60 @@
     "score": 0,
     "ninjas": [
         {
+            "dir": 1,
+            "rightBound": 50,
+            "xcoor": 20,
+            "leftBound": 0,
+            "ycoor": -57
+        },
+        {
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 170,
+            "leftBound": 0,
+            "ycoor": -57
+        },
+        {
+            "dir": -1,
+            "rightBound": 200,
+            "xcoor": 170,
+            "leftBound": 50,
+            "ycoor": -107
+        },
+        {
+            "dir": 1,
+            "rightBound": 50,
+            "xcoor": 150,
+            "leftBound": 0,
+            "ycoor": -57
+        },
+        {
+            "dir": 1,
+            "rightBound": 200,
+            "xcoor": 70,
+            "leftBound": 50,
+            "ycoor": -107
+        },
+        {
+            "dir": -1,
+            "rightBound": 50,
+            "xcoor": 100,
+            "leftBound": 0,
+            "ycoor": -57
+        },
+        {
             "dir": 0,
-            "rightBound": 20,
-            "xcoor": 13,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": -1,
-            "rightBound": 50,
-            "xcoor": 10,
-            "leftBound": 0,
-            "ycoor": 18
-        },
-        {
-            "dir": 1,
-            "rightBound": 50,
-            "xcoor": 2,
-            "leftBound": 0,
-            "ycoor": 18
+            "rightBound": 200,
+            "xcoor": 130,
+            "leftBound": 50,
+            "ycoor": -107
         },
         {
             "dir": 0,
-            "rightBound": 20,
-            "xcoor": 9,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": -1,
-            "rightBound": 50,
-            "xcoor": 17,
-            "leftBound": 0,
-            "ycoor": 18
-        },
-        {
-            "dir": 1,
-            "rightBound": 20,
-            "xcoor": 7,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": -1,
-            "rightBound": 20,
-            "xcoor": 17,
-            "leftBound": 5,
-            "ycoor": 41
-        },
-        {
-            "dir": 1,
-            "rightBound": 50,
-            "xcoor": 15,
-            "leftBound": 0,
-            "ycoor": 18
+            "rightBound": 200,
+            "xcoor": 90,
+            "leftBound": 50,
+            "ycoor": -107
         }
     ],
     "health": 100,
@@ -65,8 +65,8 @@
         "facingRight": true,
         "atRightMost": false,
         "onRoof": false,
-        "xcoor": 1,
-        "ycoor": 1,
+        "xcoor": 10,
+        "ycoor": 10,
         "inAir": true
     }],
     "batarangs": [{

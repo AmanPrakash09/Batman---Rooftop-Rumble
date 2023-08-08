@@ -12,21 +12,21 @@ import java.util.*;
 public class Game {
     public static final int TICKS_PER_SECOND = 10;
 
-    public static final int ROOF_STARTX = 5;
-    public static final int ROOF_WIDTH = 15;
+    public static final int ROOF_STARTX = 50;
+    public static final int ROOF_WIDTH = 150;
 
-    public static final int ROOF1_STARTX = 10;
-    public static final int ROOF1_WIDTH = 25;
+    public static final int ROOF1_STARTX = 100;
+    public static final int ROOF1_WIDTH = 250;
 
-    public static final int ROOF2_STARTX = 15;
-    public static final int ROOF2_WIDTH = 7;
+    public static final int ROOF2_STARTX = 150;
+    public static final int ROOF2_WIDTH = 70;
 
     // add fields to represent changing properties of Game
     private Batman batman = new Batman();
     private final Ground ground = new Ground();
     private final Roof roof = new Roof(ROOF_STARTX, ROOF_WIDTH, ground.getHeight());
     private final Roof roof1 = new Roof(ROOF1_STARTX, ROOF1_WIDTH, roof.getHeight());
-    private final Roof roof2 = new Roof(ROOF2_STARTX, ROOF2_WIDTH, roof.getHeight());
+    private final Roof roof2 = new Roof(ROOF2_STARTX, ROOF2_WIDTH, roof1.getHeight());
     private final Set<Ninja> ninjas = new HashSet<>();
     private List<Batarang> batarangs;
     private int maxX;
@@ -44,23 +44,24 @@ public class Game {
 
         batarangs = new ArrayList<Batarang>();
 
-        Ninja ninja = new Ninja(2,18, 1, 0, maxX);
-        Ninja ninja1 = new Ninja(10,18, -1, 0, maxX);
-        Ninja ninja2 = new Ninja(15,18, 1, 0, maxX);
-        Ninja ninja3 = new Ninja(17,18, -1, 0, maxX);
+        int ninjaGroundY = maxY - 100 - Ninja.SIZE_Y;
 
-        int ninjaRoof1Y = maxY - 2 - Roof.SPACE - 2;
+        Ninja ninja = new Ninja(20,ninjaGroundY, 1, 0, maxX);
+        Ninja ninja1 = new Ninja(100,ninjaGroundY, -1, 0, maxX);
+        Ninja ninja2 = new Ninja(150,ninjaGroundY, 1, 0, maxX);
+        Ninja ninja3 = new Ninja(170,ninjaGroundY, -1, 0, maxX);
 
-        Ninja ninja4 = new Ninja(7,ninjaRoof1Y, 1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
-        Ninja ninja5 = new Ninja(9,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
-        Ninja ninja6 = new Ninja(13,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
-        Ninja ninja7 = new Ninja(17,ninjaRoof1Y, -1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
+        int ninjaRoof1Y = maxY - 100 - Roof.SPACE - Ninja.SIZE_Y;
+
+        Ninja ninja4 = new Ninja(70,ninjaRoof1Y, 1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
+        Ninja ninja5 = new Ninja(90,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
+        Ninja ninja6 = new Ninja(130,ninjaRoof1Y, 0, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
+        Ninja ninja7 = new Ninja(170,ninjaRoof1Y, -1, roof.getXcoor(), roof.getXcoor() + roof.getWidth());
 
         ninjas.add(ninja);
         ninjas.add(ninja1);
         ninjas.add(ninja2);
         ninjas.add(ninja3);
-
         ninjas.add(ninja4);
         ninjas.add(ninja5);
         ninjas.add(ninja6);
@@ -93,11 +94,12 @@ public class Game {
     //          and score is incremented.
     public void handleNinja() {
         for (Ninja ninja : ninjas) {
-            if (ninja.getXcoor() == batman.getXcoor() && ninja.getYcoor() == batman.getYcoor()) {
+//            if (ninja.getXcoor() == batman.getXcoor() && ninja.getYcoor() == batman.getYcoor()) {
+            if (ninja.attackBatman(getBatman())) {
                 if (batman.isFacingRight()) {
-                    batman.setXcoor(batman.getXcoor() - 2);
+                    batman.setXcoor(batman.getXcoor() - 20);
                 } else {
-                    batman.setXcoor(batman.getXcoor() + 2);
+                    batman.setXcoor(batman.getXcoor() + 20);
                 }
                 health -= 1;
             }
@@ -163,7 +165,8 @@ public class Game {
     //           if so, adds batarang to remove list
     public boolean checkNinjaHit(Ninja target, List<Batarang> batarangsToRemove) {
         for (Batarang next : batarangs) {
-            if (target.getXcoor() == next.getXcoor() && target.getYcoor() == next.getYcoor()) {
+//            if (target.getXcoor() == next.getXcoor() && target.getYcoor() == next.getYcoor()) {
+            if (target.collidedWith(next)) {
                 batarangsToRemove.add(next);
                 score += 5;
                 return true;
@@ -211,18 +214,20 @@ public class Game {
         int r2w = roof2.getWidth();
         int r2h = roof2.getHeight();
 
-        if (by + 2 == gh) {
+        if (by + Batman.SIZE_Y == gh) {
             batman.putOnGround();
         }
 
-        if ((by + 2 == rh && bx >= rx && bx <= rx + rw)
-                || (by + 2 == r1h && bx >= r1x && bx <= r1x + r1w) || (by + 2 == r2h && bx >= r2x && bx <= r2x + r2w)) {
+        if ((by + Batman.SIZE_Y == rh && bx >= rx && bx <= rx + rw)
+                || (by + Batman.SIZE_Y == r1h && bx >= r1x && bx <= r1x + r1w)
+                || (by + Batman.SIZE_Y == r2h && bx >= r2x && bx <= r2x + r2w)) {
             batman.putOnRoof();
         }
 
         if (batman.isOnRoof()) {
-            if ((bx < rx || bx > rx + rw || by + 2 != rh)
-                    && (bx < r1x || bx > r1x + r1w || by + 2 != r1h) && (bx < r2x || bx > r2x + r2w || by + 2 != r2h)) {
+            if ((bx < rx || bx > rx + rw || by + Batman.SIZE_Y != rh)
+                    && (bx < r1x || bx > r1x + r1w || by + Batman.SIZE_Y != r1h)
+                    && (bx < r2x || bx > r2x + r2w || by + Batman.SIZE_Y != r2h)) {
                 batman.fall();
             }
         }
@@ -235,7 +240,6 @@ public class Game {
     // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-//        json.put("name", name);
         json.put("ninjas", ninjasToJson());
         json.put("batarangs", batarangsToJson());
         json.put("batman", batmanToJson());
@@ -266,7 +270,7 @@ public class Game {
         return jsonArray;
     }
 
-    // EFFECTS: returns batarangs in this game as a JSON array
+    // EFFECTS: returns batman in this game as a JSON array
     private JSONArray batmanToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -374,6 +378,7 @@ public class Game {
         return score;
     }
 
+    // EFFECTS: retrieves list of Batarangs
     public List<Batarang> getBatarangs() {
         return batarangs;
     }

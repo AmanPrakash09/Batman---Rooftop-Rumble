@@ -77,85 +77,45 @@ public class TestGame {
 
         assertEquals(2, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(0, game.getBatman().getXcoor());
+        assertEquals(2, game.getBatman().getXcoor());
         assertEquals(nYpos, game.getBatman().getYcoor());
-        assertEquals(99, game.getHealth());
+        assertEquals(100, game.getHealth());
 
         // diff y, no damage
         game.getBatman().setXcoor(2);
         game.getBatman().setYcoor(10);
         assertEquals(2, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(99, game.getHealth());
+        assertEquals(100, game.getHealth());
 
         // diff x, no damage
         game.getBatman().setXcoor(3);
         game.getBatman().setYcoor(18);
         assertEquals(2, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(99, game.getHealth());
+        assertEquals(100, game.getHealth());
 
         // diff x and y, no damage
         game.getBatman().setXcoor(3);
         game.getBatman().setYcoor(17);
         assertEquals(2, nXpos);
         assertEquals(18, nYpos);
-        assertEquals(99, game.getHealth());
-    }
-
-    @Test
-    void testHandleNinjaDamage1() {
-        // damage batman
-        game.getBatman().setXcoor(10);
-        game.getBatman().setYcoor(18);
-
-        game.handleNinja();
-
-        Ninja[] nArray = game.getNinjas().toArray(new Ninja[game.getNinjas().size()]);
-
-//        Ninja n = game.getNinjas().stream().findFirst().get();
-        Ninja n = nArray[1];
-
-        n.setXcoor(10);
-        n.setYcoor(18);
-
-        int nXpos = n.getXcoor();
-        int nYpos = n.getYcoor();
-
-        assertEquals(10, nXpos);
-        assertEquals(18, nYpos);
-        assertEquals(8, game.getBatman().getXcoor());
-        assertEquals(nYpos, game.getBatman().getYcoor());
-        assertEquals(99, game.getHealth());
-
-        // diff y, no damage
-        game.getBatman().setXcoor(10);
-        game.getBatman().setYcoor(10);
-        assertEquals(10, nXpos);
-        assertEquals(18, nYpos);
-        assertEquals(99, game.getHealth());
-
-        // diff x, no damage
-        game.getBatman().setXcoor(11);
-        game.getBatman().setYcoor(18);
-        assertEquals(10, nXpos);
-        assertEquals(18, nYpos);
-        assertEquals(99, game.getHealth());
+        assertEquals(100, game.getHealth());
     }
 
     @Test
     void testHandleNinjaHit() {
         Ninja n = game.getNinjas().stream().findFirst().get();
-        n.setXcoor(2);
-        n.setYcoor(18);
+        n.setXcoor(20);
+        n.setYcoor(400 - Ninja.SIZE_Y);
         // make batman punch enemy
         game.getBatman().moveRight(); // facing right
-        game.getBatman().setXcoor(1);
-        game.getBatman().setYcoor(18);
+        game.getBatman().setXcoor(10);
+        game.getBatman().setYcoor(400 - Batman.SIZE_Y);
         // batman is now facing right and is left of ninja, now punch
         game.getBatman().punch();
         assertTrue(game.getBatman().isFacingRight());
-        assertEquals(n.getXcoor(), game.getBatman().getXcoor() + 1);
+        assertEquals(n.getXcoor(), game.getBatman().getXcoor() + 10);
         assertTrue(game.getBatman().hasPunched(n));
         // defeatedNinja = ninjas[0], remove this ninja
         game.handleNinja();
@@ -166,8 +126,9 @@ public class TestGame {
     @Test
     void testIsBatmanOnSurfaceGround() {
         // put batman on the ground
-        game.getBatman().setYcoor(18);
-        game.getGround().setHeight(20);
+        int aboveGround = 400 - Batman.SIZE_Y;
+        game.getBatman().setYcoor(aboveGround);
+        game.getGround().setHeight(400);
         game.isBatmanOnSurface();
         assertTrue(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
@@ -175,93 +136,107 @@ public class TestGame {
     }
 
     @Test
+    void testIsBatmanOnSurfaceR1XR1W() {
+        // put batman xcoor greater than roof1x + roof1w (350)
+        int aboveGround = 300 - Batman.SIZE_Y;
+        game.getBatman().setYcoor(aboveGround);
+        game.getBatman().setXcoor(360);
+        game.getRoof1().setHeight(350);
+        game.isBatmanOnSurface();
+        assertTrue(game.getBatman().getXcoor() > game.getRoof1().getXcoor() + game.getRoof1().getWidth());
+        assertFalse(game.getBatman().isOnGround());
+        assertTrue(game.getBatman().isInAir());
+        assertFalse(game.getBatman().isOnRoof());
+    }
+
+    @Test
     void testIsBatmanOnSurfaceRoof2() {
         // put batman on roof
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(3);
+        game.getBatman().setYcoor(250 - Batman.SIZE_Y);
         // left edge of roof
-        game.getBatman().setXcoor(15);
+        game.getBatman().setXcoor(150);
 //        assertTrue(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(3);
+        game.getBatman().setYcoor(250 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(22);
+        game.getBatman().setXcoor(220);
 //        assertTrue(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(3);
+        game.getBatman().setYcoor(250 - Batman.SIZE_Y);
         // middle of roof
-        game.getBatman().setXcoor(20);
+        game.getBatman().setXcoor(200);
 //        assertTrue(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // fall off roof, same y, left edge
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(3);
+        game.getBatman().setYcoor(250 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(14);
+        game.getBatman().setXcoor(140);
 //        assertFalse(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, same y, right edge
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(3);
+        game.getBatman().setYcoor(250 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(23);
+        game.getBatman().setXcoor(230);
 //        assertFalse(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, different y
-        game.getRoof2().setHeight(10);
+        game.getRoof2().setHeight(300);
         // roof h = 15
-        game.getBatman().setYcoor(2);
+        game.getBatman().setYcoor(240 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(20);
+        game.getBatman().setXcoor(200);
 //        assertFalse(game.getBatman().isOnRoof());
         game.isBatmanOnSurface();
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
@@ -270,85 +245,85 @@ public class TestGame {
     @Test
     void testIsBatmanOnSurfaceRoof1() {
         // put batman on roof
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(8);
+        game.getBatman().setYcoor(300 - Batman.SIZE_Y);
         // left edge of roof
-        game.getBatman().setXcoor(10);
+        game.getBatman().setXcoor(100);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(8);
+        game.getBatman().setYcoor(300 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(35);
+        game.getBatman().setXcoor(350);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(8);
+        game.getBatman().setYcoor(300 - Batman.SIZE_Y);
         // middle of roof
-        game.getBatman().setXcoor(20);
+        game.getBatman().setXcoor(200);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // fall off roof, same y, left edge
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(8);
+        game.getBatman().setYcoor(300 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(9);
+        game.getBatman().setXcoor(90);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, same y, right edge
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(8);
+        game.getBatman().setYcoor(300 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(36);
+        game.getBatman().setXcoor(360);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, different y
-        game.getRoof1().setHeight(15);
+        game.getRoof1().setHeight(350);
         // roof h = 15
-        game.getBatman().setYcoor(7);
+        game.getBatman().setYcoor(290 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(15);
+        game.getBatman().setXcoor(100);
         game.isBatmanOnSurface();
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
@@ -357,85 +332,85 @@ public class TestGame {
     @Test
     void testIsBatmanOnSurfaceRoof() {
         // put batman on roof
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(13);
+        game.getBatman().setYcoor(350 - Batman.SIZE_Y);
         // left edge of roof
-        game.getBatman().setXcoor(5);
+        game.getBatman().setXcoor(50);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(13);
+        game.getBatman().setYcoor(350 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(20);
+        game.getBatman().setXcoor(200);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // put batman on roof
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(13);
+        game.getBatman().setYcoor(350 - Batman.SIZE_Y);
         // middle of roof
-        game.getBatman().setXcoor(10);
+        game.getBatman().setXcoor(100);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertFalse(game.getBatman().isInAir());
         assertTrue(game.getBatman().isOnRoof());
 
         // fall off roof, same y, left edge
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(13);
+        game.getBatman().setYcoor(350 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(4);
+        game.getBatman().setXcoor(40);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, same y, right edge
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(13);
+        game.getBatman().setYcoor(350 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(21);
+        game.getBatman().setXcoor(210);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
 
         // fall off roof, different y
-        game.getRoof().setHeight(20);
+        game.getRoof().setHeight(400);
         // roof h = 15
-        game.getBatman().setYcoor(12);
+        game.getBatman().setYcoor(340 - Batman.SIZE_Y);
         // right edge of roof
-        game.getBatman().setXcoor(10);
+        game.getBatman().setXcoor(100);
         game.isBatmanOnSurface();
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
         assertFalse(game.getBatman().isOnRoof());
@@ -444,28 +419,28 @@ public class TestGame {
     @Test
     void testIsBatmanOnSurfaceNeverOnRoof() {
         // case where batman is never on any roofs
-        game.getRoof().setHeight(20);
-        game.getRoof1().setHeight(15);
-        game.getRoof2().setHeight(10);
+        game.getRoof().setHeight(400);
+        game.getRoof1().setHeight(350);
+        game.getRoof2().setHeight(300);
 
         // check roof
-        assertEquals(5, game.getRoof().getXcoor());
-        assertEquals(15, game.getRoof().getWidth());
-        assertEquals(15, game.getRoof().getHeight());
+        assertEquals(50, game.getRoof().getXcoor());
+        assertEquals(150, game.getRoof().getWidth());
+        assertEquals(350, game.getRoof().getHeight());
 
         // check roof1
-        assertEquals(10, game.getRoof1().getXcoor());
-        assertEquals(25, game.getRoof1().getWidth());
-        assertEquals(10, game.getRoof1().getHeight());
+        assertEquals(100, game.getRoof1().getXcoor());
+        assertEquals(250, game.getRoof1().getWidth());
+        assertEquals(300, game.getRoof1().getHeight());
 
         // check roof2
-        assertEquals(15, game.getRoof2().getXcoor());
-        assertEquals(7, game.getRoof2().getWidth());
-        assertEquals(5, game.getRoof2().getHeight());
+        assertEquals(150, game.getRoof2().getXcoor());
+        assertEquals(70, game.getRoof2().getWidth());
+        assertEquals(250, game.getRoof2().getHeight());
 
         // set Batman not on any roof, should be falling
-        game.getBatman().setYcoor(20);
-        game.getBatman().setXcoor(1);
+        game.getBatman().setYcoor(10);
+        game.getBatman().setXcoor(10);
         game.isBatmanOnSurface();
         assertFalse(game.getBatman().isOnGround());
         assertTrue(game.getBatman().isInAir());
@@ -490,76 +465,64 @@ public class TestGame {
 
     @Test
     void testHandleNinjaKnockbackLeft() {
-//        Ninja n = game.getNinjas().stream().findFirst().get();
-//        n.setXcoor(6);
-//        n.setYcoor(18);
-
         game.emptyNinjas();
-        Ninja n = new Ninja(6,18,0,0,50);
+        Ninja n = new Ninja(60,400 - Ninja.SIZE_Y,0,0,500);
         game.addNinja(n);
 
         Batman batman = game.getBatman();
         batman.faceRight();
-        batman.setXcoor(6);
-        batman.setYcoor(18);
+        batman.setXcoor(60);
+        batman.setYcoor(400 - Batman.SIZE_Y);
 
         game.handleNinja();
 
-        assertEquals(4, batman.getXcoor());
+        assertEquals(40, batman.getXcoor());
         assertEquals(99, game.getHealth());
     }
 
     @Test
     void testHandleNinjaKnockbackRight() {
-//        Ninja n = game.getNinjas().stream().findFirst().get();
-//        n.setXcoor(4);
-//        n.setYcoor(18);
-
         game.emptyNinjas();
-        Ninja n = new Ninja(4,18,0,0,50);
+        Ninja n = new Ninja(40,400 - Ninja.SIZE_Y,0,0,500);
         game.addNinja(n);
 
         Batman batman = game.getBatman();
         batman.moveLeft();
-        batman.setXcoor(4);
-        batman.setYcoor(18);
+        batman.setXcoor(40);
+        batman.setYcoor(400 - Batman.SIZE_Y);
 
         game.handleNinja();
 
-        assertEquals(6, batman.getXcoor());
+        assertEquals(60, batman.getXcoor());
         assertEquals(99, game.getHealth());
     }
 
     @Test
     void testHandleNinjaNothingHappens() {
-//        Ninja n = game.getNinjas().stream().findFirst().get();
-//        n.setXcoor(4);
-//        n.setYcoor(18);
-
         game.emptyNinjas();
-        Ninja n = new Ninja(4,18,0,0,50);
+        Ninja n = new Ninja(40,400 - Ninja.SIZE_Y,0,0,50);
         game.addNinja(n);
 
         Batman batman = game.getBatman();
         batman.moveLeft();
-        batman.setXcoor(5);
-        batman.setYcoor(18);
+        batman.setXcoor(50);
+        batman.setYcoor(400 - Batman.SIZE_Y);
 
         game.handleNinja();
 
-        assertEquals(5, batman.getXcoor());
+        assertEquals(50, batman.getXcoor());
         assertEquals(100, game.getHealth());
 
-        batman.setXcoor(4);
-        batman.setYcoor(19);
+        batman.setXcoor(40);
+        batman.setYcoor(390 - Batman.SIZE_Y);
 
-        assertEquals(4, batman.getXcoor());
+        assertEquals(40, batman.getXcoor());
         assertEquals(100, game.getHealth());
 
-        batman.setXcoor(5);
-        batman.setYcoor(19);
+        batman.setXcoor(50);
+        batman.setYcoor(400 - Batman.SIZE_Y);
 
-        assertEquals(5, batman.getXcoor());
+        assertEquals(50, batman.getXcoor());
         assertEquals(100, game.getHealth());
     }
 
@@ -620,17 +583,17 @@ public class TestGame {
         game.emptyBatarangs();
 
         game.emptyNinjas();
-        Ninja n = new Ninja(5,5,0,0,50);
+        Ninja n = new Ninja(50,50,0,0,500);
         game.addNinja(n);
 
-        Batarang b1 = new Batarang(6,5,false);
-        Batarang b2 = new Batarang(7,5,false);
+        Batarang b1 = new Batarang(60,50,false);
+        Batarang b2 = new Batarang(70,50,false);
         game.addBatarang(b1);
         game.addBatarang(b2);
 
         assertEquals(2, game.getBatarangs().size());
-        assertEquals(6, game.getBatarangs().get(0).getXcoor());
-        assertEquals(7, game.getBatarangs().get(1).getXcoor());
+        assertEquals(60, game.getBatarangs().get(0).getXcoor());
+        assertEquals(70, game.getBatarangs().get(1).getXcoor());
         assertFalse(game.checkNinjaHit(n, game.getBatarangs()));
         // number of Batarangs will remain the same
         assertEquals(2, game.getBatarangs().size());
@@ -674,8 +637,8 @@ public class TestGame {
 
         game.moveBatarangs();
 
-        assertEquals(4, game.getBatarangs().get(0).getXcoor());
-        assertEquals(8, game.getBatarangs().get(1).getXcoor());
+        assertEquals(0, game.getBatarangs().get(0).getXcoor());
+        assertEquals(12, game.getBatarangs().get(1).getXcoor());
     }
 
     @Test
@@ -685,8 +648,8 @@ public class TestGame {
 
         game.throwBatarang();
         assertEquals(1, game.getBatarangs().size());
-        assertEquals(1, game.getBatarangs().get(0).getXcoor());
-        assertEquals(1, game.getBatarangs().get(0).getYcoor());
+        assertEquals(10, game.getBatarangs().get(0).getXcoor());
+        assertEquals(10, game.getBatarangs().get(0).getYcoor());
         assertEquals(1, game.getBatarangs().get(0).getDir());
     }
 
@@ -709,7 +672,7 @@ public class TestGame {
 
         Batman batman = new Batman();
         game.setBatman(batman);
-        assertEquals(1, game.getBatman().getXcoor());
-        assertEquals(1, game.getBatman().getYcoor());
+        assertEquals(10, game.getBatman().getXcoor());
+        assertEquals(10, game.getBatman().getYcoor());
     }
 }

@@ -1,0 +1,58 @@
+{
+  "score": 35,
+  "ninjas": [{
+    "dir": 1,
+    "rightBound": 500,
+    "xcoor": 479,
+    "leftBound": 0,
+    "ycoor": 393
+  }],
+  "health": 100,
+  "batman": [{
+    "punching": false,
+    "onGround": false,
+    "facingRight": true,
+    "atRightMost": false,
+    "onRoof": true,
+    "xcoor": 210,
+    "ycoor": 243,
+    "inAir": false
+  }],
+  "batarangs": [
+    {
+      "dir": -1,
+      "xcoor": 0,
+      "ycoor": 243
+    },
+    {
+      "dir": -1,
+      "xcoor": 10,
+      "ycoor": 243
+    },
+    {
+      "dir": -1,
+      "xcoor": 25,
+      "ycoor": 243
+    },
+    {
+      "dir": -1,
+      "xcoor": 35,
+      "ycoor": 243
+    },
+    {
+      "dir": -1,
+      "xcoor": 45,
+      "ycoor": 243
+    },
+    {
+      "dir": -1,
+      "xcoor": 55,
+      "ycoor": 243
+    },
+    {
+      "dir": 1,
+      "xcoor": 260,
+      "ycoor": 243
+    }
+  ]
+}

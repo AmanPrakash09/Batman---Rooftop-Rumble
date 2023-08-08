@@ -50,6 +50,9 @@ public class TerminalGame {
         this.sizeX = (terminalSize.getColumns() - 1) / 2;
         this.sizeY = terminalSize.getRows() - 2;
 
+        System.out.println(sizeX);
+        System.out.println(sizeY);
+
 //        input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);

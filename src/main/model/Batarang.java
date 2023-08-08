@@ -7,9 +7,11 @@ import java.awt.*;
 // this is the Batarang class that represents a projectile thrown by Batman
 public class Batarang {
 
-    public static final int DX = 1;
+    public static final int DX = 5;
 
     // add fields to represent changing properties of Batarang
+    public static final int SIZE_X = 9;
+    public static final int SIZE_Y = 5;
     private int xcoor;
     private int ycoor;
     private int dir;

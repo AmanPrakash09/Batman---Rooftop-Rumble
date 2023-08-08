@@ -37,7 +37,7 @@ public class JsonWriterTest extends JsonTest{
             JsonReader reader = new JsonReader("./data/testWriterInitialGame.json");
             g = reader.read();
             assertEquals(0, g.getScore());
-            checkBatman(1,1,false,false,true,false,false,true, g.getBatman());
+            checkBatman(10,10,false,false,true,false,false,true, g.getBatman());
             assertEquals(1, g.getBatarangs().size());
             checkBatarang(1,1,1,g.getBatarangs().get(0));
             assertEquals(100, g.getHealth());

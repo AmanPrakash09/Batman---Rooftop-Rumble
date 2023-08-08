@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBatman {
     private Batman batman;
-    private Ninja ninja = new Ninja(10, 10, 0, 1, 1);
+    private Ninja ninja = new Ninja(20, 20, 0, 0, 500);
 
     @BeforeEach
     void runBefore() {
@@ -17,8 +17,8 @@ public class TestBatman {
 
     @Test
     void testConstructor() {
-        assertEquals(1, batman.getXcoor());
-        assertEquals(1, batman.getYcoor());
+        assertEquals(10, batman.getXcoor());
+        assertEquals(10, batman.getYcoor());
         assertFalse(batman.isOnGround());
         assertTrue(batman.isInAir());
         assertFalse(batman.isOnRoof());
@@ -35,91 +35,138 @@ public class TestBatman {
         // batman punches, is not facing right, and is nowhere near ninja
         batman.moveLeft();  // faces left
         batman.punch();     // punches
-        batman.setXcoor(5);
-        batman.setYcoor(5);
+        batman.setXcoor(50);
+        batman.setYcoor(50);
         assertFalse(batman.hasPunched(ninja));
 
-        // batman punches, is not facing right, and is not 1 DX space away from Ninja
+        // batman punches, is not facing right, and is not 10 DX space away from Ninja
         batman.moveLeft();  // faces left
         batman.punch();     // punches
-        batman.setXcoor(5);
-        batman.setYcoor(10);
+        batman.setXcoor(50);
+        batman.setYcoor(20);
         assertFalse(batman.hasPunched(ninja));
 
         // batman punches, is not facing right, and is not on the same y as Ninja
         batman.moveLeft();  // faces left
         batman.punch();     // punches
-        batman.setXcoor(11);
-        batman.setYcoor(9);
+        batman.setXcoor(10);
+        batman.setYcoor(10);
         assertFalse(batman.hasPunched(ninja));
 
         // batman punches, is not facing right, and is one space to the right of Ninja
         batman.moveLeft();  // faces left
         batman.punch();     // punches
-        batman.setXcoor(11);
-        batman.setYcoor(10);
+        batman.setXcoor(30);
+        batman.setYcoor(20);
         assertTrue(batman.hasPunched(ninja));
 
         // batman punches, is facing right, and is nowhere near ninja
         batman.moveRight();  // faces right
         batman.punch();     // punches
-        batman.setXcoor(5);
-        batman.setYcoor(5);
+        batman.setXcoor(50);
+        batman.setYcoor(50);
         assertFalse(batman.hasPunched(ninja));
 
         // batman punches, is facing right, and is not 1 DX space away from Ninja
         batman.moveRight();  // faces right
         batman.punch();     // punches
-        batman.setXcoor(5);
-        batman.setYcoor(10);
+        batman.setXcoor(50);
+        batman.setYcoor(20);
         assertFalse(batman.hasPunched(ninja));
 
         // batman punches, is facing right, and is not on the same y as Ninja
         batman.moveRight();  // faces right
         batman.punch();     // punches
-        batman.setXcoor(11);
-        batman.setYcoor(9);
+        batman.setXcoor(10);
+        batman.setYcoor(10);
         assertFalse(batman.hasPunched(ninja));
 
         // batman punches, is facing right, and is one space to the left of Ninja
         batman.moveRight();  // faces right
         batman.punch();     // punches
-        batman.setXcoor(9);
-        batman.setYcoor(10);
+        batman.setXcoor(10);
+        batman.setYcoor(20);
         assertTrue(batman.hasPunched(ninja));
+
+        // batman punches, is facing right, and is in range to punch
+        batman.moveRight();  // faces right
+        batman.punch();     // punches
+        batman.setXcoor(10);
+        batman.setYcoor(20);
+        assertTrue(batman.hasPunched(ninja));
+
+        // batman punches, is facing left, and is in range to punch
+        batman.moveLeft();  // faces left
+        batman.punch();     // punches
+        batman.setXcoor(30);
+        batman.setYcoor(20);
+        assertTrue(batman.hasPunched(ninja));
+
+        // batman punches, is facing left, and is in range to punch but opposite side
+        batman.moveLeft();  // faces left
+        batman.punch();     // punches
+        batman.setXcoor(10);
+        batman.setYcoor(20);
+        assertFalse(batman.hasPunched(ninja));
+
+        batman.moveLeft();  // faces left
+        batman.punch();     // punches
+        batman.setXcoor(30);
+        batman.setYcoor(10);
+        assertFalse(batman.hasPunched(ninja));
+    }
+
+    @Test
+    void TestFacingRight() {
+        batman.faceRight();
+        assertTrue(batman.isFacingRight());
     }
 
     @Test
     void TestGravity() {
         batman.fall();
         batman.gravity();
-        assertEquals(2, batman.getYcoor());
+        assertEquals(11, batman.getYcoor());
+    }
+
+    @Test
+    void TestGravityRoofNegative() {
+        batman.putOnRoofNegative();
+        batman.gravity();
+        assertEquals(10, batman.getYcoor());
+    }
+
+    @Test
+    void TestGravityGroundNegative() {
+        batman.putOnGroundNegative();
+        batman.gravity();
+        assertEquals(10, batman.getYcoor());
     }
 
     @Test
     void TestGravityGround() {
         batman.putOnGround();
         batman.gravity();
-        assertEquals(1, batman.getYcoor());
+        assertEquals(10, batman.getYcoor());
     }
 
     @Test
     void TestGravityRoof() {
         batman.putOnRoof();
         batman.gravity();
-        assertEquals(1, batman.getYcoor());
+        assertEquals(10, batman.getYcoor());
     }
 
     @Test
     void TestMoveRight() {
         batman.moveRight();
-        assertEquals(2, batman.getXcoor());
+        assertEquals(20, batman.getXcoor());
         assertTrue(batman.isFacingRight());
         assertFalse(batman.isPunching());
 
         batman.putAtRightEdge();
         batman.moveRight();
-        assertEquals(2, batman.getXcoor());
+        assertEquals(20, batman.getXcoor());
         assertTrue(batman.isFacingRight());
         assertFalse(batman.isPunching());
     }
@@ -157,7 +204,7 @@ public class TestBatman {
         assertTrue(batman.isInAir());
         assertFalse(batman.isOnGround());
         assertFalse(batman.isOnRoof());
-        assertEquals(3, batman.getYcoor());
+        assertEquals(-60, batman.getYcoor());
         assertFalse(batman.isPunching());
 
         // batman on roof, can jump
@@ -167,7 +214,7 @@ public class TestBatman {
         assertTrue(batman.isInAir());
         assertFalse(batman.isOnGround());
         assertFalse(batman.isOnRoof());
-        assertEquals(3, batman.getYcoor());
+        assertEquals(-60, batman.getYcoor());
         assertFalse(batman.isPunching());
 
         // batman on jumped, cannot jump again until on ground/roof
@@ -177,13 +224,13 @@ public class TestBatman {
         assertTrue(batman.isInAir());
         assertFalse(batman.isOnGround());
         assertFalse(batman.isOnRoof());
-        assertEquals(3, batman.getYcoor());
+        assertEquals(-60, batman.getYcoor());
         assertFalse(batman.isPunching());
         batman.moveUp();
         assertTrue(batman.isInAir());
         assertFalse(batman.isOnGround());
         assertFalse(batman.isOnRoof());
-        assertEquals(3, batman.getYcoor());
+        assertEquals(-60, batman.getYcoor());
         assertFalse(batman.isPunching());
     }
 
@@ -207,7 +254,7 @@ public class TestBatman {
         // batman is on the roof, can move down
         batman.putOnRoof();
         batman.moveDown();
-        assertEquals(11, batman.getYcoor());
+        assertEquals(20, batman.getYcoor());
         assertFalse(batman.isPunching());
     }
 

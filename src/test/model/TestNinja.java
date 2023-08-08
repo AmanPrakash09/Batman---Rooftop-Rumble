@@ -3,11 +3,13 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestNinja {
     private Ninja n1;
     private Ninja n2;
+    private Batarang batarang = new Batarang(21, 21, true);
+    private Batman batman = new Batman();
 
     @BeforeEach
     void runBefore() {
@@ -71,5 +73,21 @@ public class TestNinja {
         n2.setXcoor(0); // at left bound, now switch direction
         n2.move();
         assertEquals(1, n2.getXcoor());
+    }
+
+    @Test
+    void testCollidedWith() {
+        n1.setXcoor(21);
+        n1.setYcoor(21);
+        assertTrue(n1.collidedWith(batarang));
+    }
+
+    @Test
+    void testAttackBatman() {
+        n1.setXcoor(21);
+        n1.setYcoor(21);
+        batman.setYcoor(21);
+        batman.setYcoor(21);
+        assertFalse(n1.attackBatman(batman));
     }
 }

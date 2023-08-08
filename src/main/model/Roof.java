@@ -2,7 +2,7 @@ package model;
 
 // this is the Roof class that represents a surface batman can go down
 public class Roof {
-    public static final int SPACE = 5;
+    public static final int SPACE = 50;
 
     // add fields to represent changing properties of Roof
     private int xcoor;

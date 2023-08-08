@@ -12,7 +12,7 @@ public class TestBatarang {
     @BeforeEach
     void testConstructor() {
         b1 = new Batarang(1, 1, true);
-        b2 = new Batarang(1, 1, false);
+        b2 = new Batarang(10, 1, false);
     }
 
     @Test
@@ -33,12 +33,12 @@ public class TestBatarang {
     @Test
     void testMove() {
         b1.move();
-        assertEquals(2, b1.getXcoor());
+        assertEquals(6, b1.getXcoor());
         assertEquals(1, b1.getYcoor());
         assertEquals(1, b1.getDir());
 
         b2.move();
-        assertEquals(0, b2.getXcoor());
+        assertEquals(5, b2.getXcoor());
         assertEquals(1, b2.getYcoor());
         assertEquals(-1, b2.getDir());
 

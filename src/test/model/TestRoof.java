@@ -12,59 +12,59 @@ public class TestRoof {
 
     @BeforeEach
     void runBefore() {
-        r1 = new Roof(1, 10, 6);
-        r2 = new Roof(10, 3, 8);
-        r3 = new Roof(20, 5, Roof.SPACE);
+        r1 = new Roof(50, 150, 400);
+        r2 = new Roof(100, 250, 350);
+        r3 = new Roof(150, 70, 300);
     }
 
     @Test
     void testConstructor() {
-        assertEquals(1, r1.getXcoor());
-        assertEquals(10, r1.getWidth());
-        assertEquals(1, r1.getHeight());
+        assertEquals(50, r1.getXcoor());
+        assertEquals(150, r1.getWidth());
+        assertEquals(350, r1.getHeight());
 
-        assertEquals(10, r2.getXcoor());
-        assertEquals(3, r2.getWidth());
-        assertEquals(3, r2.getHeight());
+        assertEquals(100, r2.getXcoor());
+        assertEquals(250, r2.getWidth());
+        assertEquals(300, r2.getHeight());
 
-        assertEquals(20, r3.getXcoor());
-        assertEquals(5, r3.getWidth());
-        assertEquals(0, r3.getHeight());
+        assertEquals(150, r3.getXcoor());
+        assertEquals(70, r3.getWidth());
+        assertEquals(250, r3.getHeight());
     }
 
     @Test
     void testSetWidth() {
         r1.setWidth(15);
-        assertEquals(1, r1.getXcoor());
+        assertEquals(50, r1.getXcoor());
         assertEquals(15, r1.getWidth());
-        assertEquals(1, r1.getHeight());
+        assertEquals(350, r1.getHeight());
 
         r2.setWidth(11);
-        assertEquals(10, r2.getXcoor());
+        assertEquals(100, r2.getXcoor());
         assertEquals(11, r2.getWidth());
-        assertEquals(3, r2.getHeight());
+        assertEquals(300, r2.getHeight());
 
         r3.setWidth(2);
-        assertEquals(20, r3.getXcoor());
+        assertEquals(150, r3.getXcoor());
         assertEquals(2, r3.getWidth());
-        assertEquals(0, r3.getHeight());
+        assertEquals(250, r3.getHeight());
     }
 
     @Test
     void testSetHeight() {
-        r1.setHeight(15);
-        assertEquals(1, r1.getXcoor());
-        assertEquals(10, r1.getWidth());
-        assertEquals(10, r1.getHeight());
+        r1.setHeight(150);
+        assertEquals(50, r1.getXcoor());
+        assertEquals(150, r1.getWidth());
+        assertEquals(100, r1.getHeight());
 
-        r2.setHeight(11);
-        assertEquals(10, r2.getXcoor());
-        assertEquals(3, r2.getWidth());
-        assertEquals(6, r2.getHeight());
+        r2.setHeight(110);
+        assertEquals(100, r2.getXcoor());
+        assertEquals(250, r2.getWidth());
+        assertEquals(60, r2.getHeight());
 
-        r3.setHeight(6);
-        assertEquals(20, r3.getXcoor());
-        assertEquals(5, r3.getWidth());
-        assertEquals(1, r3.getHeight());
+        r3.setHeight(60);
+        assertEquals(150, r3.getXcoor());
+        assertEquals(70, r3.getWidth());
+        assertEquals(10, r3.getHeight());
     }
 }

@@ -4,25 +4,26 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import model.Batarang;
-import model.Batman;
-import model.Game;
-import model.Ninja;
+import model.*;
 import org.json.*;
+import ui.GUI;
 
 // CITATION: framework of code was taken from JsonSerializationDemo
 // Represents a reader that reads game from JSON data stored in file
 public class JsonReader {
     private String source;
+//    private GUI gui;
 
     // EFFECTS: constructs reader to read from source file
     public JsonReader(String source) {
         this.source = source;
+//        gui = new GUI();
     }
 
     // EFFECTS: reads game from file and returns it;
@@ -35,23 +36,12 @@ public class JsonReader {
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
-
-        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
-        }
-
-        return contentBuilder.toString();
+        return Files.readString(Paths.get(source), StandardCharsets.UTF_8);
     }
 
     // EFFECTS: parses game from JSON object and returns it
     private Game parseGame(JSONObject jsonObject) throws IOException {
-
-        Screen screen = new DefaultTerminalFactory().createScreen();
-        TerminalSize terminalSize = screen.getTerminalSize();
-
-
-        Game g = new Game((terminalSize.getColumns() - 1) / 2,terminalSize.getRows() - 2);
+        Game g = new Game(GUI.WIDTH,GUI.HEIGHT);
         addNinjas(g, jsonObject);
         addBatarangs(g, jsonObject);
         addBatmanPrime(g, jsonObject);

@@ -2,12 +2,16 @@ package model;
 
 import org.json.JSONObject;
 
+import java.awt.*;
+
 // this is the Ninja class that represents an enemy
 public class Ninja {
 
     public static final int DX = 1;
 
     // add fields to represent changing properties of Ninja
+    public static final int SIZE_X = 7;
+    public static final int SIZE_Y = 7;
     private int xcoor;
     private int ycoor;
     private int dir;
@@ -67,6 +71,28 @@ public class Ninja {
     // EFFECTS: retrieves Ninja's rightBound
     public int getRightBound() {
         return this.rightBound;
+    }
+
+    // Determines if this invader has collided with a missile
+    // modifies: none
+    // effects:  returns true if this invader has collided with missile m,
+    //           false otherwise
+    public boolean collidedWith(Batarang b) {
+        Rectangle invaderBoundingRect = new Rectangle(getXcoor() - SIZE_X / 2, getYcoor() - SIZE_Y / 2, SIZE_X, SIZE_Y);
+        Rectangle missileBoundingRect = new Rectangle(b.getXcoor() - Batarang.SIZE_X / 2,
+                b.getYcoor() - Batarang.SIZE_Y / 2, Batarang.SIZE_X, Batarang.SIZE_Y);
+        return invaderBoundingRect.intersects(missileBoundingRect);
+    }
+
+    // Determines if this invader has collided with a missile
+    // modifies: none
+    // effects:  returns true if this invader has collided with missile m,
+    //           false otherwise
+    public boolean attackBatman(Batman b) {
+        Rectangle invaderBoundingRect = new Rectangle(getXcoor() - SIZE_X / 2, getYcoor() - SIZE_Y / 2, SIZE_X, SIZE_Y);
+        Rectangle missileBoundingRect = new Rectangle(b.getXcoor() - Batman.SIZE_X / 2,
+                b.getYcoor() - Batman.SIZE_Y / 2, Batman.SIZE_X, Batman.SIZE_Y);
+        return invaderBoundingRect.intersects(missileBoundingRect);
     }
 
     // EFFECTS: returns this as JSON object

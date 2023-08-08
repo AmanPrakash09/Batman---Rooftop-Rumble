@@ -5,6 +5,9 @@ import org.json.JSONObject;
 // this is the Batman class that represents the player
 public class Batman {
 
+    public static final int SIZE_X = 7;
+    public static final int SIZE_Y = 7;
+
     public static final int DX = 1;
     public static final int DY = 1;
 
@@ -25,8 +28,8 @@ public class Batman {
 
     // EFFECTS: constructs Batman with initial properties
     public Batman() {
-        this.xcoor = 1;
-        this.ycoor = 1;
+        this.xcoor = 10;
+        this.ycoor = 10;
         this.onGround = false;
         this.inAir = true;
         this.onRoof = false;
@@ -41,11 +44,11 @@ public class Batman {
     public boolean hasPunched(Ninja ninja) {
         if (punching) {
             if (facingRight) {
-                if (xcoor + 1 == ninja.getXcoor() && ycoor == ninja.getYcoor()) {
+                if (xcoor + 10 == ninja.getXcoor() && ycoor == ninja.getYcoor()) {
                     return true;
                 }
             } else {
-                if (xcoor - 1 == ninja.getXcoor() && ycoor == ninja.getYcoor()) {
+                if (xcoor - 10 == ninja.getXcoor() && ycoor == ninja.getYcoor()) {
                     return true;
                 }
             }
@@ -90,6 +93,22 @@ public class Batman {
     }
 
     // MODIFIES: this
+    // EFFECTS: does not set Batman on a roof, method for testing gravity
+    public void putOnRoofNegative() {
+        this.onRoof = false;
+        this.inAir = true;
+        this.onGround = true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: does not set Batman on a ground, method for testing gravity
+    public void putOnGroundNegative() {
+        this.onRoof = true;
+        this.inAir = true;
+        this.onGround = false;
+    }
+
+    // MODIFIES: this
     // EFFECTS: if Batman is in the air, then gravity makes him fall
     public void gravity() {
         if (inAir && !onGround && !onRoof) {
@@ -101,7 +120,7 @@ public class Batman {
     // EFFECTS: if Batman is not on the right most edge of the screen, then he moves right
     public void moveRight() {
         if (!atRightMost) {
-            this.xcoor = xcoor + DX;
+            this.xcoor = xcoor + DX * 10;
             this.facingRight = true;
             this.punching = false;
         }
@@ -112,7 +131,7 @@ public class Batman {
     public void moveLeft() {
         if (xcoor != 0) {
             this.atRightMost = false;
-            this.xcoor = xcoor - DX;
+            this.xcoor = xcoor - DX * 10;
             this.facingRight = false;
             this.punching = false;
         }
@@ -125,7 +144,7 @@ public class Batman {
             this.inAir = true;
             this.onGround = false;
             this.onRoof = false;
-            this.ycoor = ycoor - 7 * DY;
+            this.ycoor = ycoor - 70 * DY;
             this.punching = false;
         }
     }
@@ -134,7 +153,7 @@ public class Batman {
     // EFFECTS: if Batman is on the roof, then he can move down
     public void moveDown() {
         if (!onGround && !inAir) {
-            this.ycoor = ycoor + DY;
+            this.ycoor = ycoor + DY * 10;
             this.punching = false;
         }
     }
