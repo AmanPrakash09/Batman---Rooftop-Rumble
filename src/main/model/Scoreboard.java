@@ -30,9 +30,13 @@ public class Scoreboard {
         if (userList.contains(score.getName())) {
             int index = userList.indexOf(score.getName());
             scoreList.set(index, score.getScore());
+            EventLog.getInstance().logEvent(new Event("Player " + score.getName()
+                    + "'s score has been updated to " + score.getScore()));
         } else {
             userList.add(score.getName());
             scoreList.add(score.getScore());
+            EventLog.getInstance().logEvent(new Event("Player " + score.getName()
+                    + " added to Scoreboard with score " + score.getScore()));
         }
         sort();
     }
@@ -44,6 +48,8 @@ public class Scoreboard {
             userList.remove(score.getName());
             int index = scoreList.indexOf(score.getScore());
             scoreList.remove(index);
+            EventLog.getInstance().logEvent(new Event("Player " + score.getName()
+                    + " with score " + score.getScore() + " has been removed from Scoreboard"));
         }
         sort();
     }

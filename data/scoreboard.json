@@ -1,9 +1,8 @@
 {
     "scoreList": [
-        80,
         65,
         60,
-        60,
+        55,
         55,
         55,
         50,
@@ -13,17 +12,23 @@
         45,
         45,
         45,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
+        40,
         40,
         40,
         40
     ],
     "userList": [
-        "Batman",
         "test3",
-        "Average CPSC 210 Student",
         "test5",
         "Pacman",
         "Player",
+        "logTest4",
         "hello",
         "hello1",
         "yo3",
@@ -31,8 +36,15 @@
         "test7",
         "test9",
         "12345",
+        "Average CPSC 210 Student",
         "test",
         "test2",
-        "test8"
+        "test8",
+        "logTest",
+        "logTest1",
+        "logTest2",
+        "logTest3",
+        "logTest5",
+        "logTest6"
     ]
 }

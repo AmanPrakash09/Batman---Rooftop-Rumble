@@ -102,6 +102,8 @@ public class Game {
                     batman.setXcoor(batman.getXcoor() + 20);
                 }
                 health -= 1;
+                EventLog.getInstance().logEvent(new Event("Batman has been hit and his health is reduced to "
+                                                                    + health));
             }
         }
 
@@ -116,6 +118,8 @@ public class Game {
 
         ninjas.remove(defeatedNinja);
         score += 10;
+        EventLog.getInstance().logEvent(new Event("A ninja has been defeated by being punched! "
+                                                            + "The score has been raised by 10 points to " + score));
     }
 
     // MODIFIES: this
@@ -169,6 +173,8 @@ public class Game {
             if (target.collidedWith(next)) {
                 batarangsToRemove.add(next);
                 score += 5;
+                EventLog.getInstance().logEvent(new Event("A ninja has been defeated using a Batarang! "
+                        + "The score has been raised by 5 points to " + score));
                 return true;
             }
         }
@@ -190,6 +196,7 @@ public class Game {
     public void throwBatarang() {
         Batarang b = new Batarang(batman.getXcoor(), batman.getYcoor(), batman.isFacingRight());
         batarangs.add(b);
+        EventLog.getInstance().logEvent(new Event("A Batarang has been thrown!"));
     }
 
     // MODIFIES: this, Batman

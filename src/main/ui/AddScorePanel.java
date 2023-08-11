@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Game;
 import model.Score;
 import model.Scoreboard;
@@ -12,11 +14,13 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // this class is responsible for adding the Scoreboard at the end of the game
-public class AddScorePanel extends JFrame {
+public class AddScorePanel extends JFrame implements WindowListener {
     private static final String JSON_STORE = "./data/scoreboard.json";
 
     // add fields to represent changing properties of AddScorePanel
@@ -29,9 +33,10 @@ public class AddScorePanel extends JFrame {
     private Game game;
     private int score;
     private String name;
-    JTable table;
-    JScrollPane scrollPane;
-    Score newScore;
+    private JTable table;
+    private JScrollPane scrollPane;
+    private Score newScore;
+    EventLog el = EventLog.getInstance();
 
     // EFFECTS: constructs AddScorePanel with initial properties
     public AddScorePanel(Game g) throws IOException {
@@ -51,6 +56,7 @@ public class AddScorePanel extends JFrame {
         pack();
         setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
+        addWindowListener(this);
     }
 
     // MODIFIES: this
@@ -111,6 +117,53 @@ public class AddScorePanel extends JFrame {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         return table;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if (game.getScore() == 0) {
+            EventLog.getInstance().logEvent(new Event("You lose! Batman was defeated!"));
+        } else {
+            EventLog.getInstance().logEvent(new Event("You win! All ninjas defeated!"));
+        }
+        printLog(el);
+    }
+
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+//            logArea.setText(logArea.getText() + next.toString() + "\n\n");
+            System.out.println(next.toString() + "\n");
+        }
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 
     // MODIFIES: this
